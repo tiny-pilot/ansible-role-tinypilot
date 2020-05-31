@@ -1,6 +1,5 @@
 ---
   galaxy_info:
-    role_name: key_mime_pi
     author: Michael Lynch
     description: Use your Raspberry Pi as a virtual keyboard
     license: MIT
