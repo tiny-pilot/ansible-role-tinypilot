@@ -1,0 +1,34 @@
+---
+- name: enable dwc2 driver in boot config
+  lineinfile:
+    path: /boot/config.txt
+    create: yes
+    regexp: '^dtoverlay='
+    line: dtoverlay=dwc2
+
+- name: enable dwc2 driver in modules
+  lineinfile:
+    path: /etc/modules
+    create: yes
+    line: dwc2
+
+- name: copy HID initializer script
+  copy:
+    src: enable-rpi-hid
+    dest: "{{ key_mime_pi_initialize_hid_script_path }}"
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: install HID initializer as a service
+  template:
+    src: usb-gadget.systemd.j2
+    dest: /lib/systemd/system/usb-gadget.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: enable systemd HID initializer service file
+  systemd:
+    name: usb-gadget
+    enabled: yes

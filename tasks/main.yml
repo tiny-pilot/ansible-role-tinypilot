@@ -1,4 +1,8 @@
 ---
+- name: install HID USB gadget
+  import_tasks: install_usb_gadget.yml
+  when: ansible_architecture == "armv7l"
+
 - name: install Key Mime Pi pre-requisite packages
   apt:
     name: "{{ packages }}"
