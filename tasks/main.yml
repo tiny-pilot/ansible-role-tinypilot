@@ -1,0 +1,64 @@
+---
+- name: install Key Mime Pi pre-requisite packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - python-pip
+    - python3-venv
+
+- name: create keymimepi group
+  group:
+    name: "{{ key_mime_pi_group }}"
+    state: present
+
+- name: create keymimepi user
+  user:
+    name: "{{ key_mime_pi_user }}"
+    group: "{{ key_mime_pi_group }}"
+    system: yes
+
+- name: create Key Mime Pi folder
+  file:
+    path: "{{ key_mime_pi_dir }}"
+    state: directory
+    owner: "{{ key_mime_pi_user }}"
+    group: "{{ key_mime_pi_group }}"
+
+- name: get Key Mime Pi repo
+  git:
+    repo: "{{ key_mime_pi_repo }}"
+    dest: "{{ key_mime_pi_dir }}"
+    version: master
+    accept_hostkey: yes
+  notify:
+    - restart Key Mime Pi
+
+- name: create Key Mime Pi virtualenv
+  pip:
+    virtualenv: "{{ key_mime_pi_dir }}/venv" 
+    virtualenv_python: python3.7
+    requirements: "{{ key_mime_pi_dir }}/requirements.txt"
+  notify:
+    - restart Key Mime Pi
+
+- name: fix Key Mime Pi folder permissions
+  file:
+    path: "{{ key_mime_pi_dir }}"
+    state: directory
+    owner: "{{ key_mime_pi_user }}"
+    group: "{{ key_mime_pi_group }}"
+
+- name: install Key Mime Pi as a service
+  template:
+    src: key-mime-pi.systemd.j2
+    dest: /lib/systemd/system/key-mime-pi.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: enable systemd Key Mime Pi service file
+  systemd:
+    name: key-mime-pi
+    enabled: yes

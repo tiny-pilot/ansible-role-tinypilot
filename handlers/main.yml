@@ -1,0 +1,10 @@
+---
+- name: reload Key Mime Pi systemd config
+  systemd:
+    name: key-mime-pi
+    daemon_reload: yes
+
+- name: restart Key Mime Pi
+  service:
+    name: key-mime-pi
+    state: restarted

@@ -1,0 +1,13 @@
+[Unit]
+Description=Key Mime Pi  - RPi virtual keyboard
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User={{ key_mime_pi_user }}
+WorkingDirectory={{ key_mime_pi_dir }}
+ExecStart={{ key_mime_pi_dir }}venv/bin/python app/main.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

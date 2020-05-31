@@ -1,0 +1,5 @@
+---
+key_mime_pi_group: keymimepi
+key_mime_pi_user: keymimepi
+key_mime_pi_dir: /opt/key-mime-pi
+key_mime_pi_repo: https://github.com/mtlynch/key-mime-pi.git
