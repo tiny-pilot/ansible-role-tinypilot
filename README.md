@@ -29,13 +29,13 @@ None
 ```yaml
 - hosts: all
   roles:
-    - { role: mtlynch.key-mime-pi }
+    - role: mtlynch.keymimepi
 ```
 
 ### Running Example Playbook
 
 ```bash
-ansible-galaxy install mtlynch.key-mime-pi
+ansible-galaxy install mtlynch.keymimepi
 ansible-playbook example.yml
 ```
 
