@@ -41,7 +41,7 @@
 
 - name: create Key Mime Pi virtualenv
   pip:
-    virtualenv: "{{ key_mime_pi_dir }}/venv" 
+    virtualenv: "{{ key_mime_pi_dir }}/venv"
     virtualenv_python: python3.7
     requirements: "{{ key_mime_pi_dir }}/requirements.txt"
   notify:
