@@ -1,6 +1,6 @@
 # Ansible Role: Key Mime Pi
 
-[![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](LICENSE)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
 
 Ansible role for [Key Mime Pi](https://github.com/mtlynch/key-mime-pi).
 
