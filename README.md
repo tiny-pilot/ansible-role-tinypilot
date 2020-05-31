@@ -13,6 +13,9 @@ key_mime_pi_group: keymimepi
 key_mime_pi_user: keymimepi
 key_mime_pi_dir: /opt/key-mime-pi
 key_mime_pi_repo: https://github.com/mtlynch/key-mime-pi.git
+key_mime_pi_interface: '0.0.0.0'
+key_mime_pi_port: 8000
+key_mime_pi_hid_path: /dev/hidg0
 ```
 
 ## Dependencies

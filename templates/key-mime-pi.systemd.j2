@@ -6,7 +6,10 @@ After=syslog.target network.target
 Type=simple
 User={{ key_mime_pi_user }}
 WorkingDirectory={{ key_mime_pi_dir }}
-ExecStart={{ key_mime_pi_dir }}venv/bin/python app/main.py
+ExecStart={{ key_mime_pi_dir }}/venv/bin/python app/main.py
+Environment=HOST={{ key_mime_pi_interface }}
+Environment=PORT={{ key_mime_pi_port }}
+Environment=HID_PATH={{ key_mime_pi_hid_path }}
 Restart=on-abort
 
 [Install]

@@ -57,6 +57,9 @@
     owner: root
     group: root
     mode: '0644'
+  notify:
+    - reload Key Mime Pi systemd config
+    - restart Key Mime Pi
 
 - name: enable systemd Key Mime Pi service file
   systemd:
