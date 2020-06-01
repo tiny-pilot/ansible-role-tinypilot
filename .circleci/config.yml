@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:202004-01
+    steps:
+      - checkout
+      - run:
+          name: Create symlink to role
+          command: |
+            mkdir -p "${HOME}/.ansible/roles" && \
+            ln -s "${HOME}/project" "${HOME}/.ansible/roles/ansible-role-key-mime-pi"
+      - run:
+          name: Create Python3 virtual environment
+          command: python3 -m venv venv
+      - run:
+          name: Test role with molecule
+          command: |
+            . venv/bin/activate && \
+            pip install --upgrade pip && \
+            pip install docker molecule[lint] molecule[docker] && \
+            molecule test
+workflows:
+  version: 2
+  all-tests:
+    jobs:
+      - build

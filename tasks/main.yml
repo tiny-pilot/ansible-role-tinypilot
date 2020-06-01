@@ -9,8 +9,9 @@
     state: present
   vars:
     packages:
-    - python-pip
-    - python3-venv
+      - git
+      - python-pip
+      - python3-venv
 
 - name: create keymimepi group
   group:
@@ -42,7 +43,7 @@
 - name: create Key Mime Pi virtualenv
   pip:
     virtualenv: "{{ key_mime_pi_dir }}/venv"
-    virtualenv_python: python3.7
+    virtualenv_command: python3 -m venv venv
     requirements: "{{ key_mime_pi_dir }}/requirements.txt"
   notify:
     - restart Key Mime Pi
