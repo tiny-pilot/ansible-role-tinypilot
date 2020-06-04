@@ -10,7 +10,7 @@ set -u
 
 # Skip install if the device is already installed.
 if lsusb | grep "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub" > /dev/null; then
-  return 0;
+  exit 0;
 fi
 
 modprobe libcomposite
