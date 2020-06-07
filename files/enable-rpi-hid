@@ -8,11 +8,6 @@ set -e
 # Treat undefined environment variables as errors.
 set -u
 
-# Skip install if the device is already installed.
-if lsusb | grep "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub" > /dev/null; then
-  exit 0;
-fi
-
 modprobe libcomposite
 
 cd /sys/kernel/config/usb_gadget/
