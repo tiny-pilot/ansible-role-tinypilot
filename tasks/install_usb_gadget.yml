@@ -2,14 +2,15 @@
 - name: enable dwc2 driver in boot config
   lineinfile:
     path: /boot/config.txt
-    create: yes
+    create: no
     regexp: '^dtoverlay='
+    insertafter: '^\[all\]'
     line: dtoverlay=dwc2
 
 - name: enable dwc2 driver in modules
   lineinfile:
     path: /etc/modules
-    create: yes
+    create: no
     line: dwc2
 
 - name: copy HID initializer script
