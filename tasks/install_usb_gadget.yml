@@ -3,8 +3,6 @@
   lineinfile:
     path: /boot/config.txt
     create: no
-    regexp: '^dtoverlay='
-    insertafter: '^\[all\]'
     line: dtoverlay=dwc2
 
 - name: enable dwc2 driver in modules
