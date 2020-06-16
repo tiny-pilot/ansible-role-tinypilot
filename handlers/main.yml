@@ -1,10 +1,10 @@
 ---
-- name: reload Key Mime Pi systemd config
+- name: reload KVM Pi systemd config
   systemd:
-    name: key-mime-pi
+    name: kvmpi
     daemon_reload: yes
 
-- name: restart Key Mime Pi
+- name: restart KVM Pi
   service:
-    name: key-mime-pi
+    name: kvmpi
     state: restarted

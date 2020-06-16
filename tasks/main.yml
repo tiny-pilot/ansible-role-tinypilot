@@ -3,7 +3,7 @@
   import_tasks: install_usb_gadget.yml
   when: ansible_architecture.startswith("armv")
 
-- name: install Key Mime Pi pre-requisite packages
+- name: install KVM Pi pre-requisite packages
   apt:
     name: "{{ packages }}"
     state: present
@@ -13,60 +13,60 @@
       - python-pip
       - python3-venv
 
-- name: create keymimepi group
+- name: create kvmpi group
   group:
-    name: "{{ key_mime_pi_group }}"
+    name: "{{ kvmpi_group }}"
     state: present
 
-- name: create keymimepi user
+- name: create kvmpi user
   user:
-    name: "{{ key_mime_pi_user }}"
-    group: "{{ key_mime_pi_group }}"
+    name: "{{ kvmpi_user }}"
+    group: "{{ kvmpi_group }}"
     system: yes
 
-- name: create Key Mime Pi folder
+- name: create KVM Pi folder
   file:
-    path: "{{ key_mime_pi_dir }}"
+    path: "{{ kvmpi_dir }}"
     state: directory
-    owner: "{{ key_mime_pi_user }}"
-    group: "{{ key_mime_pi_group }}"
+    owner: "{{ kvmpi_user }}"
+    group: "{{ kvmpi_group }}"
 
-- name: get Key Mime Pi repo
+- name: get KVM Pi repo
   git:
-    repo: "{{ key_mime_pi_repo }}"
-    dest: "{{ key_mime_pi_dir }}"
+    repo: "{{ kvmpi_repo }}"
+    dest: "{{ kvmpi_dir }}"
     version: master
     accept_hostkey: yes
   notify:
-    - restart Key Mime Pi
+    - restart KVM Pi
 
-- name: create Key Mime Pi virtualenv
+- name: create KVM Pi virtualenv
   pip:
-    virtualenv: "{{ key_mime_pi_dir }}/venv"
+    virtualenv: "{{ kvmpi_dir }}/venv"
     virtualenv_command: python3 -m venv venv
-    requirements: "{{ key_mime_pi_dir }}/requirements.txt"
+    requirements: "{{ kvmpi_dir }}/requirements.txt"
   notify:
-    - restart Key Mime Pi
+    - restart KVM Pi
 
-- name: fix Key Mime Pi folder permissions
+- name: fix KVM Pi folder permissions
   file:
-    path: "{{ key_mime_pi_dir }}"
+    path: "{{ kvmpi_dir }}"
     state: directory
-    owner: "{{ key_mime_pi_user }}"
-    group: "{{ key_mime_pi_group }}"
+    owner: "{{ kvmpi_user }}"
+    group: "{{ kvmpi_group }}"
 
-- name: install Key Mime Pi as a service
+- name: install KVM Pi as a service
   template:
-    src: key-mime-pi.systemd.j2
-    dest: /lib/systemd/system/key-mime-pi.service
+    src: kvmpi.systemd.j2
+    dest: /lib/systemd/system/kvmpi.service
     owner: root
     group: root
     mode: '0644'
   notify:
-    - reload Key Mime Pi systemd config
-    - restart Key Mime Pi
+    - reload KVM Pi systemd config
+    - restart KVM Pi
 
-- name: enable systemd Key Mime Pi service file
+- name: enable systemd KVM Pi service file
   systemd:
-    name: key-mime-pi
+    name: kvmpi
     enabled: yes

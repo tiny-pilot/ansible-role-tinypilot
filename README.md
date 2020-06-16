@@ -1,21 +1,21 @@
-# Ansible Role: Key Mime Pi
+# Ansible Role: KVM Pi
 
-[![CircleCI](https://circleci.com/gh/mtlynch/ansible-role-key-mime-pi.svg?style=svg)](https://circleci.com/gh/mtlynch/ansible-role-key-mime-pi) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-keymimepi-blue.svg?style=flat-square)](https://galaxy.ansible.com/mtlynch/key-mime-pi) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
+[![CircleCI](https://circleci.com/gh/mtlynch/ansible-role-kvmpi.svg?style=svg)](https://circleci.com/gh/mtlynch/ansible-role-kvmpi) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-kvmpi-blue.svg?style=flat-square)](https://galaxy.ansible.com/mtlynch/kvmpi) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
 
-Ansible role for [Key Mime Pi](https://github.com/mtlynch/key-mime-pi).
+Ansible role for [KVM Pi](https://github.com/mtlynch/kvmpi).
 
 ## Role Variables
 
 Available variables are listed below, along with default values (see [defaults/main.yml](defaults/main.yml)):
 
 ```yaml
-key_mime_pi_group: keymimepi
-key_mime_pi_user: keymimepi
-key_mime_pi_dir: /opt/key-mime-pi
-key_mime_pi_repo: https://github.com/mtlynch/key-mime-pi.git
-key_mime_pi_interface: '0.0.0.0'
-key_mime_pi_port: 8000
-key_mime_pi_hid_path: /dev/hidg0
+kvmpi_group: kvmpi
+kvmpi_user: kvmpi
+kvmpi_dir: /opt/kvmpi
+kvmpi_repo: https://github.com/mtlynch/kvmpi.git
+kvmpi_interface: '0.0.0.0'
+kvmpi_port: 8000
+kvmpi_hid_path: /dev/hidg0
 ```
 
 ## Dependencies
@@ -29,13 +29,13 @@ None
 ```yaml
 - hosts: all
   roles:
-    - role: mtlynch.keymimepi
+    - role: mtlynch.kvmpi
 ```
 
 ### Running Example Playbook
 
 ```bash
-ansible-galaxy install mtlynch.keymimepi
+ansible-galaxy install mtlynch.kvmpi
 ansible-playbook example.yml
 ```
 

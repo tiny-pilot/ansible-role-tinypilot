@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include ansible-role-key-mime-pi"
+    - name: "Include ansible-role-kvmpi"
       include_role:
-        name: "ansible-role-key-mime-pi"
+        name: "ansible-role-kvmpi"

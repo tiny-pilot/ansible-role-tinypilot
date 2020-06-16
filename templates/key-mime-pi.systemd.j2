@@ -1,15 +1,15 @@
 [Unit]
-Description=Key Mime Pi  - RPi virtual keyboard
+Description=KVM Pi  - RPi virtual keyboard
 After=syslog.target network.target
 
 [Service]
 Type=simple
-User={{ key_mime_pi_user }}
-WorkingDirectory={{ key_mime_pi_dir }}
-ExecStart={{ key_mime_pi_dir }}/venv/bin/python app/main.py
-Environment=HOST={{ key_mime_pi_interface }}
-Environment=PORT={{ key_mime_pi_port }}
-Environment=HID_PATH={{ key_mime_pi_hid_path }}
+User={{ kvmpi_user }}
+WorkingDirectory={{ kvmpi_dir }}
+ExecStart={{ kvmpi_dir }}/venv/bin/python app/main.py
+Environment=HOST={{ kvmpi_interface }}
+Environment=PORT={{ kvmpi_port }}
+Environment=HID_PATH={{ kvmpi_hid_path }}
 Restart=on-abort
 
 [Install]

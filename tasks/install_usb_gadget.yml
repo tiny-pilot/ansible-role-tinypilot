@@ -14,7 +14,7 @@
 - name: copy HID initializer script
   copy:
     src: enable-rpi-hid
-    dest: "{{ key_mime_pi_initialize_hid_script_path }}"
+    dest: "{{ kvmpi_initialize_hid_script_path }}"
     owner: root
     group: root
     mode: '0744'
