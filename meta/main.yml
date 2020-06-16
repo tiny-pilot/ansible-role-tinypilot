@@ -14,8 +14,46 @@
 
     galaxy_tags:
       - raspberrypi
+      - kvm
       - usb
       - hid
       - oss
 
-  dependencies: []
+  dependencies:
+    - role: mtlynch.ustreamer
+      vars:
+        ustreamer_interface: '0.0.0.0'
+        ustreamer_port: 8001
+        ustreamer_encoder: omx
+        ustreamer_resolution: 1280x720
+        ustreamer_workers: 3
+        ustreamer_persistent: true
+        ustreamer_drop_same_frames: 30
+        ustreamer_desired_fps: 10
+    - role: geerlingguy.nginx
+      vars:
+        nginx_vhosts:
+          - listen: "80 default_server"
+            server_name: "KVMPi"
+            root: "{{ kvmpi_dir }}"
+            index: "index.html"
+            extra_parameters: |
+              location /socket.io {
+                proxy_pass http://localhost:{{ kvmpi_port }};
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+                proxy_set_header Host $host;
+              }
+              location /state {
+                proxy_pass http://localhost:{{ ustreamer_port }};
+              }
+              location /stream {
+                proxy_pass http://localhost:{{ ustreamer_port }};
+              }
+              location / {
+                proxy_pass http://localhost:{{ kvmpi_port }};
+              }
+              location ~* ^/.+\.(html|js|css|jpeg|png|ico)$ {
+              }
+        nginx_remove_default_vhost: true
