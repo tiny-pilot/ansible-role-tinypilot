@@ -1,37 +1,38 @@
 ---
-  galaxy_info:
-    role_name: kvmpi
-    author: Michael Lynch
-    description: Use your Raspberry Pi as a virtual keyboard
-    license: MIT
+galaxy_info:
+  role_name: kvmpi
+  author: Michael Lynch
+  description: Use your Raspberry Pi as a virtual keyboard
+  license: MIT
 
-    min_ansible_version: 2.8
+  min_ansible_version: 2.8
 
-    platforms:
-      - name: Debian
-        versions:
-          - buster
+  platforms:
+    - name: Debian
+      versions:
+        - buster
 
-    galaxy_tags:
-      - raspberrypi
-      - kvm
-      - usb
-      - hid
-      - oss
+  galaxy_tags:
+    - raspberrypi
+    - kvm
+    - usb
+    - hid
+    - oss
 
-  dependencies:
-    - role: mtlynch.ustreamer
-      vars:
-        ustreamer_interface: '0.0.0.0'
-        ustreamer_port: 8001
-        ustreamer_encoder: omx
-        ustreamer_resolution: 1280x720
-        ustreamer_workers: 3
-        ustreamer_persistent: true
-        ustreamer_drop_same_frames: 30
-        ustreamer_desired_fps: 10
-    - role: geerlingguy.nginx
-      vars:
+dependencies:
+  - role: mtlynch.ustreamer
+    vars:
+      ustreamer_interface: '0.0.0.0'
+      ustreamer_port: 8001
+      ustreamer_encoder: omx
+      ustreamer_resolution: 1280x720
+      ustreamer_workers: 3
+      ustreamer_persistent: true
+      ustreamer_drop_same_frames: 30
+      ustreamer_desired_fps: 10
+  - role: geerlingguy.nginx
+    vars:
+      ustreamer_port: 8001
         nginx_vhosts:
           - listen: "80 default_server"
             server_name: "KVMPi"
@@ -55,5 +56,6 @@
                 proxy_pass http://localhost:{{ kvmpi_port }};
               }
               location ~* ^/.+\.(html|js|css|jpeg|png|ico)$ {
+                root "{{ kvmpi_dir }}/app/static";
               }
         nginx_remove_default_vhost: true
