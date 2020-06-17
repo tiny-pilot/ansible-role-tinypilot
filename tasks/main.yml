@@ -38,7 +38,7 @@
     version: master
     accept_hostkey: yes
   notify:
-    - restart KVM Pi
+    - restart KVM Pi service
 
 - name: create KVM Pi virtualenv
   pip:
@@ -46,7 +46,7 @@
     virtualenv_command: python3 -m venv venv
     requirements: "{{ kvmpi_dir }}/requirements.txt"
   notify:
-    - restart KVM Pi
+    - restart KVM Pi service
 
 - name: fix KVM Pi folder permissions
   file:
@@ -64,7 +64,7 @@
     mode: '0644'
   notify:
     - reload KVM Pi systemd config
-    - restart KVM Pi
+    - restart KVM Pi service
 
 - name: enable systemd KVM Pi service file
   systemd:
