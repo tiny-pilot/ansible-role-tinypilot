@@ -12,6 +12,7 @@
       - git
       - python-pip
       - python3-venv
+      - sudo
 
 - name: create kvmpi group
   group:
@@ -23,6 +24,12 @@
     name: "{{ kvmpi_user }}"
     group: "{{ kvmpi_group }}"
     system: yes
+
+- name: enable passwordless sudo for shutdown command
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: "{{ kvmpi_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
 
 - name: create KVM Pi folder
   file:
