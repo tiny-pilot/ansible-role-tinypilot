@@ -42,7 +42,7 @@
   git:
     repo: "{{ kvmpi_repo }}"
     dest: "{{ kvmpi_dir }}"
-    version: master
+    version: "{{ kvmpi_repo_branch }}"
     accept_hostkey: yes
   notify:
     - restart KVM Pi service

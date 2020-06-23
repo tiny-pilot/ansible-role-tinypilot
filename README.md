@@ -13,9 +13,11 @@ kvmpi_group: kvmpi
 kvmpi_user: kvmpi
 kvmpi_dir: /opt/kvmpi
 kvmpi_repo: https://github.com/mtlynch/kvmpi.git
+kvmpi_repo_branch: master
 kvmpi_interface: '0.0.0.0'
 kvmpi_port: 8000
 kvmpi_hid_path: /dev/hidg0
+kvmpi_initialize_hid_script_path: /opt/enable-rpi-hid
 ```
 
 ## Dependencies
