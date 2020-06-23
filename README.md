@@ -20,7 +20,8 @@ kvmpi_hid_path: /dev/hidg0
 
 ## Dependencies
 
-None
+* [mtlynch.ustreamer](https://github.com/mtlynch/ansible-role-ustreamer)
+* [geerlingguy.nginx](https://github.com/geerlingguy/ansible-role-nginx)
 
 ## Example Playbook
 
