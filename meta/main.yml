@@ -26,10 +26,10 @@ dependencies:
       ustreamer_port: 8001
       ustreamer_encoder: omx
       ustreamer_resolution: 1280x720
-      ustreamer_workers: 3
+      ustreamer_workers: 16
       ustreamer_persistent: true
       ustreamer_drop_same_frames: 30
-      ustreamer_desired_fps: 10
+      ustreamer_desired_fps: 30
   - role: geerlingguy.nginx
     vars:
       ustreamer_port: 8001
