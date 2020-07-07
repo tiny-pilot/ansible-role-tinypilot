@@ -3,7 +3,7 @@
   import_tasks: install_usb_gadget.yml
   when: ansible_architecture.startswith("armv")
 
-- name: install KVM Pi pre-requisite packages
+- name: install Tiny Pilot pre-requisite packages
   apt:
     name: "{{ packages }}"
     state: present
@@ -14,66 +14,66 @@
       - python3-venv
       - sudo
 
-- name: create kvmpi group
+- name: create tinypilot group
   group:
-    name: "{{ kvmpi_group }}"
+    name: "{{ tinypilot_group }}"
     state: present
 
-- name: create kvmpi user
+- name: create tinypilot user
   user:
-    name: "{{ kvmpi_user }}"
-    group: "{{ kvmpi_group }}"
+    name: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
     system: yes
 
 - name: enable passwordless sudo for shutdown command
   lineinfile:
     dest: /etc/sudoers
     state: present
-    line: "{{ kvmpi_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
+    line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
 
-- name: create KVM Pi folder
+- name: create Tiny Pilot folder
   file:
-    path: "{{ kvmpi_dir }}"
+    path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ kvmpi_user }}"
-    group: "{{ kvmpi_group }}"
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
 
-- name: get KVM Pi repo
+- name: get Tiny Pilot repo
   git:
-    repo: "{{ kvmpi_repo }}"
-    dest: "{{ kvmpi_dir }}"
-    version: "{{ kvmpi_repo_branch }}"
+    repo: "{{ tinypilot_repo }}"
+    dest: "{{ tinypilot_dir }}"
+    version: "{{ tinypilot_repo_branch }}"
     accept_hostkey: yes
   notify:
-    - restart KVM Pi service
+    - restart Tiny Pilot service
 
-- name: create KVM Pi virtualenv
+- name: create Tiny Pilot virtualenv
   pip:
-    virtualenv: "{{ kvmpi_dir }}/venv"
+    virtualenv: "{{ tinypilot_dir }}/venv"
     virtualenv_command: python3 -m venv venv
-    requirements: "{{ kvmpi_dir }}/requirements.txt"
+    requirements: "{{ tinypilot_dir }}/requirements.txt"
   notify:
-    - restart KVM Pi service
+    - restart Tiny Pilot service
 
-- name: fix KVM Pi folder permissions
+- name: fix Tiny Pilot folder permissions
   file:
-    path: "{{ kvmpi_dir }}"
+    path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ kvmpi_user }}"
-    group: "{{ kvmpi_group }}"
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
 
-- name: install KVM Pi as a service
+- name: install Tiny Pilot as a service
   template:
-    src: kvmpi.systemd.j2
-    dest: /lib/systemd/system/kvmpi.service
+    src: tinypilot.systemd.j2
+    dest: /lib/systemd/system/tinypilot.service
     owner: root
     group: root
     mode: '0644'
   notify:
-    - reload KVM Pi systemd config
-    - restart KVM Pi service
+    - reload Tiny Pilot systemd config
+    - restart Tiny Pilot service
 
-- name: enable systemd KVM Pi service file
+- name: enable systemd Tiny Pilot service file
   systemd:
-    name: kvmpi
+    name: tinypilot
     enabled: yes

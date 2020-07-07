@@ -9,7 +9,7 @@ jobs:
           name: Create symlink to role
           command: |
             mkdir -p "${HOME}/.ansible/roles" && \
-            ln -s "${HOME}/project" "${HOME}/.ansible/roles/ansible-role-kvmpi"
+            ln -s "${HOME}/project" "${HOME}/.ansible/roles/ansible-role-tinypilot"
       - run:
           name: Create Python3 virtual environment
           command: python3 -m venv venv

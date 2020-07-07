@@ -1,0 +1,16 @@
+[Unit]
+Description=Tiny Pilot - RPi-based virtual KVM
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User={{ tinypilot_user }}
+WorkingDirectory={{ tinypilot_dir }}
+ExecStart={{ tinypilot_dir }}/venv/bin/python app/main.py
+Environment=HOST={{ tinypilot_interface }}
+Environment=PORT={{ tinypilot_port }}
+Environment=HID_PATH={{ tinypilot_hid_path }}
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
