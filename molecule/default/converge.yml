@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include ansible-role-kvmpi"
+    - name: "Include ansible-role-tinypilot"
       include_role:
-        name: "ansible-role-kvmpi"
+        name: "ansible-role-tinypilot"

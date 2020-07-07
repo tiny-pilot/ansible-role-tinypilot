@@ -1,10 +1,10 @@
 ---
-- name: reload KVM Pi systemd config
+- name: reload Tiny Pilot systemd config
   systemd:
-    name: kvmpi
+    name: tinypilot
     daemon_reload: yes
 
-- name: restart KVM Pi service
+- name: restart Tiny Pilot service
   service:
-    name: kvmpi
+    name: tinypilot
     state: restarted
