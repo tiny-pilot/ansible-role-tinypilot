@@ -24,7 +24,7 @@ dependencies:
     vars:
       ustreamer_interface: '0.0.0.0'
       ustreamer_port: 8001
-      ustreamer_encoder: omx
+      ustreamer_encoder: hw
       ustreamer_resolution: 1280x720
       ustreamer_workers: 16
       ustreamer_persistent: true
