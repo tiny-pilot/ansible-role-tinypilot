@@ -26,7 +26,7 @@ dependencies:
       ustreamer_port: 8001
       ustreamer_encoder: hw
       ustreamer_resolution: 1280x720
-      ustreamer_workers: 3
+      ustreamer_workers: 4
       ustreamer_persistent: true
       ustreamer_drop_same_frames: 30
       ustreamer_desired_fps: 30
