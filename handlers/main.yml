@@ -1,10 +1,10 @@
 ---
-- name: reload Tiny Pilot systemd config
+- name: reload TinyPilot systemd config
   systemd:
     name: tinypilot
     daemon_reload: yes
 
-- name: restart Tiny Pilot service
+- name: restart TinyPilot service
   service:
     name: tinypilot
     state: restarted

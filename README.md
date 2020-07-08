@@ -1,8 +1,8 @@
-# Ansible Role: Tiny Pilot
+# Ansible Role: TinyPilot
 
 [![CircleCI](https://circleci.com/gh/mtlynch/ansible-role-tinypilot.svg?style=svg)](https://circleci.com/gh/mtlynch/ansible-role-tinypilot) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-tinypilot-blue.svg?style=flat-square)](https://galaxy.ansible.com/mtlynch/tinypilot) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
 
-Ansible role for [Tiny Pilot KVM](https://github.com/mtlynch/tinypilot).
+Ansible role for [TinyPilot KVM](https://github.com/mtlynch/tinypilot).
 
 ## Role Variables
 
