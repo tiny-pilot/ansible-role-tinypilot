@@ -3,7 +3,7 @@
   import_tasks: install_usb_gadget.yml
   when: ansible_architecture.startswith("armv")
 
-- name: install Tiny Pilot pre-requisite packages
+- name: install TinyPilot pre-requisite packages
   apt:
     name: "{{ packages }}"
     state: present
@@ -31,38 +31,38 @@
     state: present
     line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
 
-- name: create Tiny Pilot folder
+- name: create TinyPilot folder
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
 
-- name: get Tiny Pilot repo
+- name: get TinyPilot repo
   git:
     repo: "{{ tinypilot_repo }}"
     dest: "{{ tinypilot_dir }}"
     version: "{{ tinypilot_repo_branch }}"
     accept_hostkey: yes
   notify:
-    - restart Tiny Pilot service
+    - restart TinyPilot service
 
-- name: create Tiny Pilot virtualenv
+- name: create TinyPilot virtualenv
   pip:
     virtualenv: "{{ tinypilot_dir }}/venv"
     virtualenv_command: python3 -m venv venv
     requirements: "{{ tinypilot_dir }}/requirements.txt"
   notify:
-    - restart Tiny Pilot service
+    - restart TinyPilot service
 
-- name: fix Tiny Pilot folder permissions
+- name: fix TinyPilot folder permissions
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
 
-- name: install Tiny Pilot as a service
+- name: install TinyPilot as a service
   template:
     src: tinypilot.systemd.j2
     dest: /lib/systemd/system/tinypilot.service
@@ -70,10 +70,10 @@
     group: root
     mode: '0644'
   notify:
-    - reload Tiny Pilot systemd config
-    - restart Tiny Pilot service
+    - reload TinyPilot systemd config
+    - restart TinyPilot service
 
-- name: enable systemd Tiny Pilot service file
+- name: enable systemd TinyPilot service file
   systemd:
     name: tinypilot
     enabled: yes
