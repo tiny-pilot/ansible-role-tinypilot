@@ -25,6 +25,7 @@ dependencies:
       ustreamer_interface: '127.0.0.1'
       ustreamer_port: 8001
       ustreamer_encoder: hw
+      ustreamer_format: jpeg
       ustreamer_resolution: 1280x720
       ustreamer_workers: 4
       ustreamer_persistent: true
