@@ -17,6 +17,7 @@ tinypilot_repo_branch: master
 tinypilot_interface: '127.0.0.1'
 tinypilot_port: 8000
 tinypilot_hid_path: /dev/hidg0
+tinypilot_cors_origin: http://tinypilot
 tinypilot_initialize_hid_script_path: /opt/enable-rpi-hid
 ```
 

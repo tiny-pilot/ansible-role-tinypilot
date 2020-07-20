@@ -10,6 +10,7 @@ ExecStart={{ tinypilot_dir }}/venv/bin/python app/main.py
 Environment=HOST={{ tinypilot_interface }}
 Environment=PORT={{ tinypilot_port }}
 Environment=HID_PATH={{ tinypilot_hid_path }}
+Environment=CORS_ORIGIN={{ tinypilot_cors_origin }}
 Restart=on-abort
 
 [Install]
