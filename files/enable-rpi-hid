@@ -28,7 +28,7 @@ echo "Generic USB Keyboard" > "${STRINGS_DIR}/product"
 FUNCTIONS_DIR="functions/hid.usb0"
 mkdir -p "$FUNCTIONS_DIR"
 echo 1 > "${FUNCTIONS_DIR}/protocol" # Keyboard
-echo 0 > "${FUNCTIONS_DIR}/subclass" # No subclass
+echo 1 > "${FUNCTIONS_DIR}/subclass" # Boot interface subclass
 echo 8 > "${FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
 # Source: https://www.kernel.org/doc/html/latest/usb/gadget_hid.html
