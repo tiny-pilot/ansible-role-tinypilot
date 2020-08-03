@@ -4,6 +4,7 @@
     path: /boot/config.txt
     create: no
     line: dtoverlay=dwc2
+    # TODO: Check that /boot/config.txt exists or that this is a Raspbian OS.
 
 - name: enable dwc2 driver in modules
   lineinfile:
