@@ -61,6 +61,7 @@
     state: directory
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
+    recurse: yes
 
 - name: install TinyPilot as a service
   template:
