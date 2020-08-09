@@ -18,8 +18,8 @@ jobs:
           command: |
             . venv/bin/activate && \
             pip install --upgrade pip && \
-            pip install docker molecule[lint] molecule[docker] && \
-            pip install ansible && \
+            pip install docker==4.2.2 molecule[lint]==3.0.6 molecule[docker]==3.0.6 && \
+            pip install ansible==2.9.10 && \
             ansible-galaxy install --role-file molecule/default/requirements.yml && \
             molecule test
 workflows:
