@@ -62,6 +62,8 @@
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
     recurse: yes
+  # TODO: Figure out why this fails idempotency otherwise.
+  changed_when: false
 
 - name: install TinyPilot as a service
   template:
