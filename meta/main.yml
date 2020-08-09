@@ -35,6 +35,13 @@ dependencies:
   - role: geerlingguy.nginx
     vars:
       ustreamer_port: 8001
+      nginx_upstreams:
+        - name: tinypilot
+          servers:
+            - "localhost:{{ tinypilot_port }} fail_timeout=1s max_fails=600"
+        - name: ustreamer
+          servers:
+            - "localhost:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       nginx_vhosts:
         - listen: "80 default_server"
           server_name: "tinypilot"
@@ -48,18 +55,18 @@ dependencies:
             proxy_http_version 1.1;
 
             location /socket.io {
-              proxy_pass http://localhost:{{ tinypilot_port }};
+              proxy_pass http://tinypilot;
               proxy_set_header Upgrade $http_upgrade;
               proxy_set_header Connection "Upgrade";
             }
             location /state {
-              proxy_pass http://localhost:{{ ustreamer_port }};
+              proxy_pass http://ustreamer;
             }
             location /stream {
-              proxy_pass http://localhost:{{ ustreamer_port }};
+              proxy_pass http://ustreamer;
             }
             location / {
-              proxy_pass http://localhost:{{ tinypilot_port }};
+              proxy_pass http://tinypilot;
             }
             location ~* ^/.+\.(html|js|js.map|css|jpeg|png|ico)$ {
               root "{{ tinypilot_dir }}/app/static";
