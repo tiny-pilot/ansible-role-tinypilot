@@ -51,6 +51,9 @@
   shell: realpath $(which python3)
   register: realpath_python3
 
+- debug:
+    var: realpath_python3
+
 - name: save absolute path to python3
   set_fact:
     python3_abs_path: realpath_python3.stdout
