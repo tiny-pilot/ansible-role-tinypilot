@@ -61,6 +61,9 @@
   set_fact:
     python3_abs_path: python3_stat.stat.path
 
+- debug:
+    var: python3_abs_path
+
 - name: create TinyPilot virtualenv
   pip:
     virtualenv: "{{ tinypilot_dir }}/venv"
