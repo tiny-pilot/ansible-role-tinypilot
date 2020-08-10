@@ -47,19 +47,13 @@
   notify:
     - restart TinyPilot service
 
-- name: find python3 path
-  shell: which python3
-  register: which_python3
-
-- name: convert python3 path to absolute path
-  stat:
-    path: "{{ which_python3.stdout }}"
-    follow: yes
-  register: python3_stat
+- name: find absolute path to python3
+  shell: realpath $(which python3)
+  register: realpath_python3
 
 - name: save absolute path to python3
   set_fact:
-    python3_abs_path: python3_stat.stat.path
+    python3_abs_path: realpath_python3.stdout
 
 - name: create TinyPilot virtualenv
   pip:
