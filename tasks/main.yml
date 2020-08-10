@@ -53,7 +53,7 @@
 
 - name: save absolute path to python3
   set_fact:
-    python3_abs_path: realpath_python3.stdout
+    python3_abs_path: "{{ realpath_python3.stdout }}"
 
 - name: create TinyPilot virtualenv
   pip:
