@@ -50,6 +50,7 @@
 - name: find absolute path to python3
   shell: realpath $(which python3)
   register: realpath_python3
+  changed_when: false
 
 - name: save absolute path to python3
   set_fact:
