@@ -47,10 +47,24 @@
   notify:
     - restart TinyPilot service
 
+- name: find python3 path
+  shell: which python3
+  register: which_python3
+
+- name: convert python3 path to absolute path
+  stat:
+    path: "{{ which_python3.stdout }}"
+    follow: yes
+  register: python3_stat
+
+- name: save absolute path to python3
+  set_fact:
+    python3_abs_path: python3_stat.stat.path
+
 - name: create TinyPilot virtualenv
   pip:
     virtualenv: "{{ tinypilot_dir }}/venv"
-    virtualenv_command: "{{ ansible_python_interpreter }} -m venv venv"
+    virtualenv_command: "{{ python3_abs_path }} -m venv venv"
     requirements: "{{ tinypilot_dir }}/requirements.txt"
   notify:
     - restart TinyPilot service
