@@ -11,15 +11,7 @@
     create: no
     line: dwc2
 
-- name: copy HID initializer script
-  copy:
-    src: enable-rpi-hid
-    dest: "{{ tinypilot_initialize_hid_script_path }}"
-    owner: root
-    group: root
-    mode: '0744'
-
-- name: install HID initializer as a service
+- name: install usb-gadget initializer as a service
   template:
     src: usb-gadget.systemd.j2
     dest: /lib/systemd/system/usb-gadget.service
@@ -27,7 +19,7 @@
     group: root
     mode: '0644'
 
-- name: enable systemd HID initializer service file
+- name: enable systemd usb-gadget initializer service file
   systemd:
     name: usb-gadget
     enabled: yes
