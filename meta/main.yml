@@ -28,7 +28,6 @@ dependencies:
       ustreamer_format: jpeg
       ustreamer_resolution: 1920x1080
       ustreamer_persistent: true
-      ustreamer_drop_same_frames: 30
       ustreamer_desired_fps: 30
       ustreamer_repo_version: v1.19
   - role: geerlingguy.nginx
