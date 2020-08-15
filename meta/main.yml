@@ -36,10 +36,10 @@ dependencies:
       nginx_upstreams:
         - name: tinypilot
           servers:
-            - "localhost:{{ tinypilot_port }} fail_timeout=1s max_fails=600"
+            - "127.0.0.1:{{ tinypilot_port }} fail_timeout=1s max_fails=600"
         - name: ustreamer
           servers:
-            - "localhost:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
+            - "127.0.0.1:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       nginx_vhosts:
         - listen: "80 default_server"
           server_name: "tinypilot"
