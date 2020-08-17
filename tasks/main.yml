@@ -24,6 +24,7 @@
     name: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
     system: yes
+    create_home: no
 
 - name: enable passwordless sudo for shutdown command
   lineinfile:
