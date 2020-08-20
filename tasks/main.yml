@@ -1,7 +1,7 @@
 ---
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
-  when: ansible_architecture.startswith("armv") or ansible_architecture == "aarch64"
+  when: tinypilot_provision_usb_gadget
 
 - name: install TinyPilot pre-requisite packages
   apt:
