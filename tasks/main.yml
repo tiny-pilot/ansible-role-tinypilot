@@ -1,18 +1,28 @@
 ---
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
-  when: tinypilot_provision_usb_gadget
+
+- name: collect tinypilot's required apt packages on all distros
+  set_fact:
+    tinypilot_packages:
+      - git
+      - python3-venv
+      - sudo
+
+- name: collect apt packages for Debian (any) and Ubuntu (<20.04)
+  set_fact:
+    tinypilot_packages: "{{ tinypilot_packages }} + ['python-pip']"
+  when: ansible_distribution == 'Debian' or (ansible_distribution == 'Ubuntu' and ansible_distribution_version != '20.04')
+
+- name: collect apt packages for Ubuntu 20.04
+  set_fact:
+    tinypilot_packages: "{{ tinypilot_packages }} + ['python3-pip']"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
 
 - name: install TinyPilot pre-requisite packages
   apt:
-    name: "{{ packages }}"
+    name: "{{ tinypilot_packages }}"
     state: present
-  vars:
-    packages:
-      - git
-      - python-pip
-      - python3-venv
-      - sudo
 
 - name: create tinypilot group
   group:
