@@ -5,3 +5,5 @@
     - name: "Include ansible-role-tinypilot"
       include_role:
         name: "ansible-role-tinypilot"
+      vars:
+        tinypilot_provision_usb_gadget: no
