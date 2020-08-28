@@ -24,5 +24,4 @@ scenario:
     - create
     - converge
     - idempotence
-    - side_effect
     - destroy
