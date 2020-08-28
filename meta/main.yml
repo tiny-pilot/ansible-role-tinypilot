@@ -41,7 +41,7 @@ dependencies:
           servers:
             - "127.0.0.1:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       nginx_vhosts:
-        - listen: "80 default_server"
+        - listen: "{{ tinypilot_external_port }} default_server"
           server_name: "tinypilot"
           root: "{{ tinypilot_dir }}"
           index: "index.html"
