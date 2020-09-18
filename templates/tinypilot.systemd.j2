@@ -10,6 +10,7 @@ ExecStart={{ tinypilot_dir }}/venv/bin/python app/main.py
 Environment=HOST={{ tinypilot_interface }}
 Environment=PORT={{ tinypilot_port }}
 Environment=KEYBOARD_PATH={{ tinypilot_keyboard_interface }}
+Environment=MOUSE_PATH={{ tinypilot_mouse_interface }}
 Restart=always
 
 [Install]
