@@ -13,5 +13,5 @@ tinypilot_interface: '127.0.0.1'
 tinypilot_port: 8000
 tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
-tinypilot_keyboard_layout: null
+tinypilot_keyboard_layout: qwerty
 tinypilot_provision_usb_gadget: yes
