@@ -4,8 +4,8 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
-    image: geerlingguy/docker-debian9-ansible
+  - name: debian10
+    image: mtlynch/debian10-ansible:2.9.13
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
