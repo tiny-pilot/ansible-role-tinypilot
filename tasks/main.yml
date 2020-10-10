@@ -3,16 +3,27 @@
   import_tasks: install_usb_gadget.yml
   when: tinypilot_provision_usb_gadget
 
-- name: install TinyPilot pre-requisite packages
-  apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
+- name: collect TinyPilot required apt packages on all systems
+  set_fact:
+    tinypilot_packages:
       - git
-      - python-pip
       - python3-venv
       - sudo
+
+- name: collect Debian and Ubuntu specific TinyPilot required apt packages
+  set_fact:
+    tinypilot_packages: "{{ tinypilot_packages }} + ['python-pip']"
+  when: ansible_distribution == 'Debian' or (ansible_distribution == 'Ubuntu' and ansible_distribution_version != '20.04')
+
+- name: collect Ubuntu 20.04 specific TinyPilot required apt packages
+  set_fact:
+    tinypilot_packages: "{{ tinypilot_packages }} + ['python3-pip']"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
+
+- name: install TinyPilot pre-requisite packages
+  apt:
+    name: "{{ tinypilot_packages }}"
+    state: present
 
 - name: create tinypilot group
   group:
