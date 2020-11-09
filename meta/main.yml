@@ -63,6 +63,9 @@ dependencies:
             location /stream {
               proxy_pass http://ustreamer;
             }
+            location /snapshot {
+              proxy_pass http://ustreamer;
+            }
             location / {
               proxy_pass http://tinypilot;
             }
