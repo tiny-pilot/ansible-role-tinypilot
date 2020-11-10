@@ -24,11 +24,6 @@ dependencies:
     vars:
       ustreamer_interface: '127.0.0.1'
       ustreamer_port: 8001
-      ustreamer_encoder: hw
-      ustreamer_format: jpeg
-      ustreamer_resolution: 1920x1080
-      ustreamer_persistent: true
-      ustreamer_desired_fps: 30
       ustreamer_repo_version: v1.23
   - role: geerlingguy.nginx
     vars:
