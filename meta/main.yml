@@ -24,7 +24,7 @@ dependencies:
     vars:
       ustreamer_interface: '127.0.0.1'
       ustreamer_port: 8001
-      ustreamer_repo_version: v1.23
+      ustreamer_repo_version: v2.1
   - role: geerlingguy.nginx
     vars:
       ustreamer_port: 8001
