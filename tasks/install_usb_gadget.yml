@@ -11,11 +11,17 @@
     line: dtoverlay=dwc2
   when: boot_config_stat.stat.exists
 
+- name: check for an /etc/modules file
+  stat:
+    path: /boot/config.txt
+  register: etc_modules_stat
+
 - name: enable dwc2 driver in modules
   lineinfile:
     path: /etc/modules
     create: no
     line: dwc2
+  when: etc_modules_stat.stat.exists
 
 - name: install usb-gadget initializer as a service
   template:
