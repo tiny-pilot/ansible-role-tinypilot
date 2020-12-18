@@ -13,7 +13,7 @@
 
 - name: check for an /etc/modules file
   stat:
-    path: /boot/config.txt
+    path: /etc/modules
   register: etc_modules_stat
 
 - name: enable dwc2 driver in modules
