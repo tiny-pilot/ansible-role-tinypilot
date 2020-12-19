@@ -20,7 +20,7 @@ jobs:
             pip install --upgrade pip && \
             pip install ansible==2.9.10 && \
             pip install docker==4.2.2 molecule[lint]==3.0.6 molecule[docker]==3.0.6 && \
-            ansible-galaxy install --role-file molecule/default/requirements.yml && \
+            ansible-galaxy install --role-file requirements.yml && \
             ansible --version && \
             molecule --version && \
             molecule test
