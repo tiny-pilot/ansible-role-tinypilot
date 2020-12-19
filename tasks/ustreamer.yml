@@ -1,0 +1,10 @@
+---
+- name: import uStreamer role
+  import_role: mtlynch.ustreamer
+  vars:
+    ustreamer_interface: '127.0.0.1'
+    ustreamer_port: 8001
+    # Temporary workaround for a uStreamer bug that affects TinyPilot.
+    # See: https://github.com/mtlynch/ustreamer/commit/3ee535ce83a343ecae504a0a37efb08721126953
+    ustreamer_repo: https://github.com/mtlynch/ustreamer.git
+    ustreamer_repo_version: semwait

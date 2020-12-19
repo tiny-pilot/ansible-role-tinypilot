@@ -1,4 +1,10 @@
 ---
+- name: install uStreamer
+  import_tasks: ustreamer.yml
+
+- name: install nginx
+  import_tasks: nginx.yml
+
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
   when: tinypilot_provision_usb_gadget
