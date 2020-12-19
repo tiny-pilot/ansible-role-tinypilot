@@ -1,6 +1,7 @@
 ---
 - name: import uStreamer role
-  import_role: mtlynch.ustreamer
+  import_role:
+    name: mtlynch.ustreamer
   vars:
     ustreamer_interface: '127.0.0.1'
     ustreamer_port: 8001
