@@ -7,7 +7,6 @@
 
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
-  when: tinypilot_provision_usb_gadget
 
 - name: install TinyPilot pre-requisite packages
   apt:
