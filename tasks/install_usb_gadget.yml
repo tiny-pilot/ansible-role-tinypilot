@@ -23,6 +23,14 @@
     line: dwc2
   when: etc_modules_stat.stat.exists
 
+- name: copy usb-gadget initializer
+  copy:
+    src: init-usb-gadget
+    dest: "{{ tinypilot_privileged_dir }}/init-usb-gadget"
+    owner: root
+    group: root
+    mode: '0700'
+
 - name: install usb-gadget initializer as a service
   template:
     src: usb-gadget.systemd.j2

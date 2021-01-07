@@ -2,6 +2,7 @@
 tinypilot_group: tinypilot
 tinypilot_user: tinypilot
 tinypilot_dir: /opt/tinypilot
+tinypilot_privileged_dir: /opt/tinypilot-privileged
 tinypilot_repo: https://github.com/mtlynch/tinypilot.git
 tinypilot_repo_branch: master
 # Port on which TinyPilot frontend listens (accessible from other hosts on the
