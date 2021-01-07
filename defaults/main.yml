@@ -2,6 +2,8 @@
 tinypilot_group: tinypilot
 tinypilot_user: tinypilot
 tinypilot_dir: /opt/tinypilot
+init_usb_gadget_path: /opt/tinypilot-updater/mtlynch.tinypilot/scripts/usb-gadget/init-usb-gadget
+final_init_usb_gadget_path: /opt/tinypilot-privileged/init-usb-gadget
 tinypilot_repo: https://github.com/mtlynch/tinypilot.git
 tinypilot_repo_branch: master
 # Port on which TinyPilot frontend listens (accessible from other hosts on the
