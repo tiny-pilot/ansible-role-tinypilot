@@ -23,24 +23,10 @@
     line: dwc2
   when: etc_modules_stat.stat.exists
 
-- name: create /opt/tinypilot-privileged/ path
-  file:
-    path: /opt/tinypilot-privileged
-    state: directory
-    mode: '0755'
-
-- name: check for a init-usb-gadget file
-  stat:
-    path: "{{ init_usb_gadget_path }}"
-  register: init_usb_gadget_stat
-
-- name: move usb-gadget initializer
-  command: "mv {{ init_usb_gadget_path }} {{ final_init_usb_gadget_path }}"
-  when: init_usb_gadget_stat.stat.exists
-
-- name: force mode 700 on init-usb-gadget
-  file:
-    path: "{{ final_init_usb_gadget_path }}"
+- name: copy usb-gadget initializer
+  copy:
+    src: init-usb-gadget
+    dest: "{{ tinypilot_privileged_dir }}/init-usb-gadget"
     owner: root
     group: root
     mode: '0700'
