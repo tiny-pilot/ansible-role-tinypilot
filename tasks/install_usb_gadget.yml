@@ -23,6 +23,13 @@
     line: dwc2
   when: etc_modules_stat.stat.exists
 
+- name: create TinyPilot privileged folder
+  file:
+    path: "{{ tinypilot_privileged_dir }}"
+    state: directory
+    owner: "root"
+    group: "root"
+
 - name: copy usb-gadget initializer
   copy:
     src: init-usb-gadget
