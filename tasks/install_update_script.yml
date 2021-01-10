@@ -1,0 +1,8 @@
+---
+- name: copy update script
+  copy:
+    src: update
+    dest: "{{ tinypilot_privileged_dir }}/update"
+    owner: root
+    group: root
+    mode: '0700'

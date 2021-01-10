@@ -8,6 +8,9 @@
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
 
+- name: install TinyPilot update script
+  import_tasks: install_update_script.yml
+
 - name: install TinyPilot pre-requisite packages
   apt:
     name: "{{ packages }}"
@@ -36,6 +39,12 @@
     dest: /etc/sudoers
     state: present
     line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
+
+- name: enable passwordless sudo for update script
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: {{ tinypilot_privileged_dir }}/update"
 
 - name: create TinyPilot folder
   file:
