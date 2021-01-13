@@ -1,5 +1,16 @@
 version: 2.1
 jobs:
+  check_whitespace:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - run:
+          name: Check for trailing whitespace
+          command: tests/check-trailing-whitespace
+      - run:
+          name: Check that all text files end in a trailing newline
+          command: tests/check-trailing-newline
   build:
     machine:
       image: ubuntu-1604:202004-01
@@ -28,4 +39,5 @@ workflows:
   version: 2
   all-tests:
     jobs:
+      - check_whitespace
       - build
