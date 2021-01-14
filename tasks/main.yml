@@ -67,6 +67,7 @@
     virtualenv: "{{ tinypilot_dir }}/venv"
     virtualenv_command: "{{ python3_abs_path }} -m venv venv"
     requirements: "{{ tinypilot_dir }}/requirements.txt"
+    extra_args: "{{ tinypilot_pip_args }}"
   notify:
     - restart TinyPilot service
 
