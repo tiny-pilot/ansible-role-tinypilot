@@ -15,4 +15,4 @@ tinypilot_port: 8000
 tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
 tinypilot_enable_debug_logging: no
-pip_args: ""
+tinypilot_pip_args: ""
