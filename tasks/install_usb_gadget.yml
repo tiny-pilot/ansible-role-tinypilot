@@ -1,7 +1,8 @@
 ---
-- name: set the path to config.txt
+- name: set the path to config.txt on non-Ubuntu systems
   set_fact:
     config_txt_path: /boot/config.txt
+  when: ansible_distribution != 'Ubuntu'
 
 - name: set the path to config.txt for Ubuntu
   set_fact:
