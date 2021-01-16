@@ -1,12 +1,21 @@
 ---
+- name: set the path to config.txt
+  set_fact:
+    config_txt_path: /boot/config.txt
+
+- name: set the path to config.txt for Ubuntu
+  set_fact:
+    config_txt_path: /boot/firmware/config.txt
+  when: ansible_distribution == 'Ubuntu'
+
 - name: check for a boot config file
   stat:
-    path: /boot/config.txt
+    path: "{{ config_txt_path }}"
   register: boot_config_stat
 
 - name: enable dwc2 driver in boot config
   lineinfile:
-    path: /boot/config.txt
+    path: "{{ config_txt_path }}"
     create: no
     line: dtoverlay=dwc2
   when: boot_config_stat.stat.exists
