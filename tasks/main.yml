@@ -42,11 +42,25 @@
     system: yes
     create_home: no
 
-- name: enable passwordless sudo for shutdown command
+- name: copy update script
+  copy:
+    src: update
+    dest: "{{ tinypilot_privileged_dir }}/update"
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: store passwordless sudo paths
+  set_fact:
+    sudo_paths:
+      - /sbin/shutdown
+      - "{{ tinypilot_privileged_dir }}/update"
+
+- name: enable tinypilot to execute a whitelist of commands as sudo
   lineinfile:
     dest: /etc/sudoers
     state: present
-    line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: /sbin/shutdown"
+    line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: {{ sudo_paths | join(', ') }}"
 
 - name: create TinyPilot folder
   file:
