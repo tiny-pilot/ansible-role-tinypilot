@@ -50,11 +50,20 @@
     group: root
     mode: '0700'
 
+- name: copy debug log collection script
+  copy:
+    src: collect-debug-logs
+    dest: "{{ tinypilot_privileged_dir }}/collect-debug-logs"
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: store passwordless sudo paths
   set_fact:
     sudo_paths:
       - /sbin/shutdown
       - "{{ tinypilot_privileged_dir }}/update"
+      - "{{ tinypilot_privileged_dir }}/collect-debug-logs"
 
 - name: enable tinypilot to execute a whitelist of commands as sudo
   lineinfile:
