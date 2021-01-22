@@ -9,8 +9,8 @@ Usage: ${0##*/} [-hsu]
 Collect debug logs.
 
     -h Display this help and exit.
-    -s Run in silent mode without prompting user for inputs.
-    -u In silent mode, upload log file. If -s is provided and -u is not, the log file will not be uploaded.
+    -q Run in silent mode without prompting user for inputs.
+    -u In silent mode, upload log file. If -q is provided and -u is not, the log file will not be uploaded.
        If not in silent mode, -u is ignored.
 EOF
 }
@@ -19,13 +19,13 @@ FLAG_SILENT_MODE=false
 FLAG_UPLOAD_LOGFILE=false
 
 # Parse command-line arguments.
-while getopts "hsu" opt; do
+while getopts "hqu" opt; do
     case $opt in
         h)
             print_help
             exit
             ;;
-        s)
+        q)
             FLAG_SILENT_MODE=true
             ;;
         u)
