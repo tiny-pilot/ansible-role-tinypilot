@@ -3,6 +3,35 @@
 # Exit on unset variable.
 set -u
 
+print_help() {
+    cat << EOF
+Usage: ${0##*/} [-hsu]
+Collect debug logs.
+
+    -h Display this help and exit.
+    -q Run in silent mode without prompting user for inputs.
+EOF
+}
+
+FLAG_SILENT_MODE=false
+
+# Parse command-line arguments.
+while getopts "hq" opt; do
+    case $opt in
+        h)
+            print_help
+            exit
+            ;;
+        q)
+            FLAG_SILENT_MODE=true
+            ;;
+        *)
+            print_help >&2
+            exit 1
+        # Add more options in the future.
+    esac
+done
+
 LOG_FILE=$(mktemp)
 echo "Writing diagnostic logs to $LOG_FILE"
 
@@ -64,10 +93,17 @@ cat "$LOG_FILE"
 echo "-------------------------------------"
 printf "\n\n"
 
-echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
-read answer
-printf "\n"
-if [ "$answer" != "${answer#[Yy]}" ] ;then
+SHOULD_UPLOAD=false
+if [ "$FLAG_SILENT_MODE" != "true" ]; then
+    echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
+    read answer
+    printf "\n"
+    if [ "$answer" != "${answer#[Yy]}" ]; then
+        SHOULD_UPLOAD=true
+    fi
+fi
+
+if [ "$SHOULD_UPLOAD" == "true" ]; then
     URL=$(cat "$LOG_FILE" | curl --silent --show-error --form 'sprunge=<-' http://sprunge.us)
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "${URL}\n\n"
