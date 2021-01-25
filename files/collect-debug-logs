@@ -10,16 +10,13 @@ Collect debug logs.
 
     -h Display this help and exit.
     -q Run in silent mode without prompting user for inputs.
-    -u In silent mode, upload log file. If -q is provided and -u is not, the log file will not be uploaded.
-       If not in silent mode, -u is ignored.
 EOF
 }
 
 FLAG_SILENT_MODE=false
-FLAG_UPLOAD_LOGFILE=false
 
 # Parse command-line arguments.
-while getopts "hqu" opt; do
+while getopts "hq" opt; do
     case $opt in
         h)
             print_help
@@ -27,9 +24,6 @@ while getopts "hqu" opt; do
             ;;
         q)
             FLAG_SILENT_MODE=true
-            ;;
-        u)
-            FLAG_UPLOAD_LOGFILE=true
             ;;
         *)
             print_help >&2
@@ -100,12 +94,7 @@ echo "-------------------------------------"
 printf "\n\n"
 
 SHOULD_UPLOAD=false
-
-if [ "$FLAG_SILENT_MODE" == "true" ]; then
-    if [ "$FLAG_UPLOAD_LOGFILE" == "true" ]; then
-        SHOULD_UPLOAD=true
-    fi
-else
+if [ "$FLAG_SILENT_MODE" != "true" ]; then
     echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
     read answer
     printf "\n"
