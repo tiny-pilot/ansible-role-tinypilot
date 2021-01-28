@@ -9,6 +9,38 @@ set -u
 # Exit on first error.
 set -e
 
+FLAG_RELEASE_VERSION=''
+
+print_help() {
+  cat << EOF
+Usage: ${0##*/} [-h] [-r release]
+Update TinyPilot.
+  -h Display this help and exit.
+  -r Update TinyPilot to a specific release version or commit ID.
+EOF
+}
+
+# Parse command-line arguments.
+while getopts "hr:" opt; do
+  case $opt in
+    r)
+      FLAG_RELEASE_VERSION="${OPTARG}"
+      ;;
+    h)
+      print_help
+      exit
+      ;;
+    *)
+      print_help >&2
+      exit 1
+  esac
+done
+
+# If release version is set, export it so the bash script below can use it.
+if [[ ! -z "${FLAG_RELEASE_VERSION}" ]]; then
+  export TINYPILOT_INSTALL_VARS="tinypilot_repo_branch=${FLAG_RELEASE_VERSION}"
+fi
+
 curl \
   --silent \
   --show-error \
