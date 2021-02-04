@@ -8,3 +8,4 @@
   service:
     name: tinypilot
     state: restarted
+  when: "{{ allow_restart }}"

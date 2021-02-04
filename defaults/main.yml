@@ -16,3 +16,5 @@ tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
 tinypilot_enable_debug_logging: no
 tinypilot_pip_args: ""
+# Controls whether the role can restart the TinyPilot service.
+tinypilot_allow_restart: yes
