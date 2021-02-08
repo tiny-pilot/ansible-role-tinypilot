@@ -70,6 +70,8 @@
     dest: /etc/sudoers
     state: present
     line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: {{ sudo_paths | join(', ') }}"
+    regexp: "^{{ tinypilot_user }}"
+    validate: sudo /usr/sbin/visudo -cf %s
 
 - name: create TinyPilot folder
   file:
