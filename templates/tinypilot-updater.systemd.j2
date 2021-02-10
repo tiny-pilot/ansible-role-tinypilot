@@ -1,0 +1,16 @@
+[Unit]
+Description=TinyPilot updater
+After=syslog.target network.target
+
+[Service]
+Type=oneshot
+User={{ tinypilot_user }}
+WorkingDirectory={{ tinypilot_dir }}
+ExecStart={{ tinypilot_dir }}/venv/bin/python scripts/update-service
+Environment=PYTHONPATH={{ tinypilot_dir }}/app
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=tinypilot-update-svc
+
+[Install]
+WantedBy=local-fs.target

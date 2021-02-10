@@ -62,6 +62,7 @@
   set_fact:
     sudo_paths:
       - /sbin/shutdown
+      - /usr/sbin/service tinypilot-updater start
       - "{{ tinypilot_privileged_dir }}/update"
       - "{{ tinypilot_privileged_dir }}/collect-debug-logs"
 
@@ -132,3 +133,13 @@
   systemd:
     name: tinypilot
     enabled: yes
+
+- name: install tinypilot-updater as a service
+  template:
+    src: tinypilot-updater.systemd.j2
+    dest: /lib/systemd/system/tinypilot-updater.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - reload tinypilot updater systemd config
