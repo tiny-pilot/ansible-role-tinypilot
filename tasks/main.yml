@@ -89,6 +89,21 @@
   notify:
     - restart TinyPilot service
 
+- name: create usb-gadget folder
+  file:
+    path: "{{ tinypilot_dir }}/scripts/usb-gadget"
+    state: directory
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+
+- name: copy usb-gadget script for MT-VIKI KVM
+  copy:
+    src: init-usb-gadget-kvm
+    dest: "{{ tinypilot_dir }}/scripts/usb-gadget/init-usb-gadget"
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+    mode: '0755'
+
 - name: find absolute path to python3
   shell: realpath $(which python3)
   register: realpath_python3
