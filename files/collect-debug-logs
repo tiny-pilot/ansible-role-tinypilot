@@ -71,7 +71,7 @@ printf "\n" >> "$LOG_FILE"
 
 echo "Checking TinyPilot updater logs..."
 printf "TinyPilot update logs\n" >> "$LOG_FILE"
-./read-update-log | tail -n 200 >> "$LOG_FILE"
+$(dirname $0)/read-update-log | tail -n 200 >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
 echo "Checking uStreamer configuration..."
