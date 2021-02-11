@@ -69,6 +69,11 @@ printf "TinyPilot logs\n" >> "$LOG_FILE"
 sudo journalctl -u tinypilot | tail -n 200 >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
+echo "Checking TinyPilot updater logs..."
+printf "TinyPilot update logs\n" >> "$LOG_FILE"
+$(dirname $0)/read-update-log | tail -n 200 >> "$LOG_FILE"
+printf "\n" >> "$LOG_FILE"
+
 echo "Checking uStreamer configuration..."
 printf "uStreamer configuration\n" >> "$LOG_FILE"
 cat /lib/systemd/system/ustreamer.service >> "$LOG_FILE"
