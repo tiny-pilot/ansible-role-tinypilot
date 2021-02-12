@@ -27,7 +27,7 @@ done
 # Ensure 'new_hostname' is given.
 shift $(($OPTIND - 1))
 if [[ ! $@ ]]; then
-  echo "Input parameter missing: new_hostname"
+  echo "Input parameter missing: new_hostname" 1>&2
   exit 1
 fi
 
@@ -41,7 +41,7 @@ if ! [[ "$NEW_HOSTNAME" =~ $VALID_HOSTNAME_PATTERN ]] \
   || [[ "$NEW_HOSTNAME" == "localhost" ]] \
   || [[ ${#NEW_HOSTNAME} -gt 63 ]] \
   ; then
-  echo "Invalid hostname"
+  echo "Invalid hostname" 1>&2
   exit 1
 fi
 
@@ -66,7 +66,7 @@ while IFS= read line; do
 done < /etc/hosts
 
 if $IS_IN_MARKER_SECTION; then
-  echo "Unclosed marker section"
+  echo "Unclosed marker section" 1>&2
   exit 1
 fi
 
