@@ -73,6 +73,6 @@ fi
 
 # Populate new hostname to system files.
 OLD_ETC_HOSTS=$(printf "%s\n" "${ETC_HOSTS_ORIGINAL[@]}")
-NEW_MARKER_SECTION="$MARKER_START\n127.0.0.1 $NEW_HOSTNAME\n$MARKER_END"
+NEW_MARKER_SECTION="$MARKER_START\n127.0.1.1 $NEW_HOSTNAME\n$MARKER_END"
 printf "$NEW_MARKER_SECTION\n$OLD_ETC_HOSTS\n" > /etc/hosts
 echo $NEW_HOSTNAME > /etc/hostname
