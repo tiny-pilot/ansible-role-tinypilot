@@ -5,7 +5,7 @@ set -u
 
 print_help() {
     cat << EOF
-Usage: ${0##*/} [-hsu]
+Usage: ${0##*/} [-hq]
 Collect debug logs.
 
     -h Display this help and exit.
