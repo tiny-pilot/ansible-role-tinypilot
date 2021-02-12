@@ -27,8 +27,8 @@ done
 # Ensure 'new_hostname' is given.
 shift $(($OPTIND - 1))
 if [[ ! $@ ]]; then
-	echo "Input parameter missing: new_hostname"
-	exit 1
+  echo "Input parameter missing: new_hostname"
+  exit 1
 fi
 
 # Validate 'new_hostname' parameter.
