@@ -5,6 +5,9 @@
 # Exit on unset variable.
 set -u
 
+# Exit on first error.
+set -e
+
 print_help() {
   cat << EOF
 Usage: ${0##*/} [-h] new_hostname
