@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Change the hostname of the machine.
 
 # Exit on unset variable.
 set -u
