@@ -13,7 +13,7 @@ jobs:
           command: tests/check-trailing-newline
   build:
     machine:
-      image: ubuntu-1604:202004-01
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run:
