@@ -50,6 +50,7 @@
     group: root
     mode: '0755'
   with_items:
+    - change-hostname
     - collect-debug-logs
     - read-update-log
     - update
@@ -59,9 +60,10 @@
     sudo_paths:
       - /sbin/shutdown
       - /usr/sbin/service tinypilot-updater start
-      - "{{ tinypilot_privileged_dir }}/update"
+      - "{{ tinypilot_privileged_dir }}/change-hostname"
       - "{{ tinypilot_privileged_dir }}/collect-debug-logs"
       - "{{ tinypilot_privileged_dir }}/read-update-log"
+      - "{{ tinypilot_privileged_dir }}/update"
 
 - name: enable tinypilot to execute a whitelist of commands as sudo
   lineinfile:
