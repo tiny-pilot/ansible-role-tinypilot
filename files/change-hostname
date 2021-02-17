@@ -35,7 +35,7 @@ done
 
 # Ensure 'new_hostname' is given.
 shift $((OPTIND - 1))
-if [[ ! $* ]]; then
+if (( $# == 0 )); then
   echo "Input parameter missing: new_hostname" >&2
   exit 1
 fi
@@ -47,7 +47,7 @@ new_hostname="$1"
 if ! [[ "$new_hostname" =~ $VALID_HOSTNAME_PATTERN ]] \
   || [[ "$new_hostname" == -* ]] \
   || [[ "$new_hostname" == "localhost" ]] \
-  || [[ ${#new_hostname} -gt 63 ]] \
+  || (( ${#NEW_HOSTNAME} > 63 )) \
   ; then
   echo "Invalid hostname" >&2
   exit 1
