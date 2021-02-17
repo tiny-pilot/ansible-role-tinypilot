@@ -113,7 +113,8 @@
     group: "{{ tinypilot_group }}"
     recurse: yes
   # TODO: Figure out why this fails idempotency otherwise.
-  changed_when: false
+  tags:
+    - molecule-idempotence-notest
 
 - name: install TinyPilot as a service
   template:
