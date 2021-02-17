@@ -85,4 +85,3 @@ readonly OLD_ETC_HOSTS=$(printf "%s\n" "${etc_hosts_original[@]}")
 printf "%s\n127.0.1.1 %s\n%s\n%s\n" \
   "${MARKER_START}" "${NEW_HOSTNAME}" "${MARKER_END}" "${OLD_ETC_HOSTS}" \
   > /etc/hosts
-
