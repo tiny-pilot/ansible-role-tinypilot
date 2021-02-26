@@ -44,11 +44,11 @@ echo "Software versions" >> "$LOG_FILE"
 
 echo "Checking TinyPilot version..." >&2
 cd /opt/tinypilot
-printf "TinyPilot version: %s %s\n" "$(git describe --tags)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
+printf "TinyPilot version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
 
 echo "Checking uStreamer version..." >&2
 cd /opt/ustreamer
-printf "uStreamer version: %s %s\n" "$(git describe --tags)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
+printf "uStreamer version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
 
 echo "Checking OS version..." >&2
 printf "OS version: %s\n" "$(uname -a)" >> "$LOG_FILE"
