@@ -63,8 +63,10 @@
     owner: root
     group: root
     mode: '0644'
+  register: usb_gadget_template
 
 - name: enable systemd usb-gadget initializer service file
   systemd:
     name: usb-gadget
     enabled: yes
+    daemon_reload: "{{ usb_gadget_template.changed }}"
