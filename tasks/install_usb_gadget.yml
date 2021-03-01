@@ -48,6 +48,14 @@
     group: root
     mode: '0700'
 
+- name: copy usb-gadget de-initializer
+  copy:
+    src: remove-usb-gadget
+    dest: "{{ tinypilot_privileged_dir }}/remove-usb-gadget"
+    owner: root
+    group: root
+    mode: '0700'
+
 - name: install usb-gadget initializer as a service
   template:
     src: usb-gadget.systemd.j2
