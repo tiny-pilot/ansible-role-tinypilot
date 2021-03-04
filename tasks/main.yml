@@ -40,7 +40,7 @@
     name: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
     system: yes
-    create_home: no
+    create_home: yes
 
 - name: copy admin scripts
   copy:
