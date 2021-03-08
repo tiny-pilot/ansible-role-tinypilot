@@ -13,6 +13,21 @@ Collect debug logs.
 EOF
 }
 
+#######################################
+# Prints a string if not in silent mode.
+# Globals:
+#   FLAG_SILENT_MODE
+# Arguments:
+#   printf arguments
+# Outputs:
+#   Writes a formatted string to stdout.
+#######################################
+print_info() {
+  if [ "$FLAG_SILENT_MODE" != "true" ]; then
+    printf "$@"
+  fi
+}
+
 FLAG_SILENT_MODE=false
 
 # Parse command-line arguments.
@@ -33,7 +48,7 @@ while getopts "hq" opt; do
 done
 
 LOG_FILE=$(mktemp)
-echo "Writing diagnostic logs to $LOG_FILE"
+print_info "Writing diagnostic logs to $LOG_FILE\n"
 
 echo "TinyPilot log dump" >> "$LOG_FILE"
 echo "https://tinypilotkvm.com" >> "$LOG_FILE"
@@ -42,49 +57,49 @@ printf "\n\n" >> "$LOG_FILE"
 
 echo "Software versions" >> "$LOG_FILE"
 
-echo "Checking TinyPilot version..."
+print_info "Checking TinyPilot version...\n"
 cd /opt/tinypilot
 printf "TinyPilot version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
 
-echo "Checking uStreamer version..."
+print_info "Checking uStreamer version...\n"
 cd /opt/ustreamer
 printf "uStreamer version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
 
-echo "Checking OS version..."
+print_info "Checking OS version...\n"
 printf "OS version: %s\n" "$(uname -a)" >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking for voltage issues..."
+print_info "Checking for voltage issues...\n"
 echo "voltage logs" >> "$LOG_FILE"
 sudo journalctl -xe | grep -i "voltage"  >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking TinyPilot configuration..."
+print_info "Checking TinyPilot configuration...\n"
 printf "TinyPilot configuration\n" >> "$LOG_FILE"
 cat /lib/systemd/system/tinypilot.service >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking TinyPilot logs..."
+print_info "Checking TinyPilot logs...\n"
 printf "TinyPilot logs\n" >> "$LOG_FILE"
 sudo journalctl -u tinypilot | tail -n 200 >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking TinyPilot updater logs..."
+print_info "Checking TinyPilot updater logs...\n"
 printf "TinyPilot update logs\n" >> "$LOG_FILE"
 $(dirname $0)/read-update-log | tail -n 200 >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking uStreamer configuration..."
+print_info "Checking uStreamer configuration...\n"
 printf "uStreamer configuration\n" >> "$LOG_FILE"
 cat /lib/systemd/system/ustreamer.service >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking uStreamer logs..."
+print_info "Checking uStreamer logs...\n"
 printf "uStreamer logs\n" >> "$LOG_FILE"
 sudo journalctl -u ustreamer | tail -n 80 >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-echo "Checking nginx logs..."
+print_info "Checking nginx logs...\n"
 echo "nginx logs" >> "$LOG_FILE"
 sudo journalctl -u nginx >> "$LOG_FILE"
 printf "\n\n" >> "$LOG_FILE"
@@ -93,10 +108,10 @@ printf "\n\n" >> "$LOG_FILE"
 sudo tail -n 30 /var/log/nginx/access.log >> "$LOG_FILE"
 printf "\n" >> "$LOG_FILE"
 
-printf "Your log:\n\n"
+print_info "Your log:\n\n"
 cat "$LOG_FILE"
-echo "-------------------------------------"
-printf "\n\n"
+print_info "%s\n" "-------------------------------------"
+print_info "\n\n"
 
 SHOULD_UPLOAD=false
 if [ "$FLAG_SILENT_MODE" != "true" ]; then
@@ -113,7 +128,7 @@ if [ "$SHOULD_UPLOAD" == "true" ]; then
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "${URL}\n\n"
 else
-    echo "Log file not uploaded."
-    printf "If you decide to share it, run:\n\n"
-    printf "  cat $LOG_FILE | curl --silent --show-error --form 'sprunge=<-' http://sprunge.us\n\n"
+    print_info "Log file not uploaded.\n"
+    print_info "If you decide to share it, run:\n\n"
+    print_info "  cat $LOG_FILE | curl --silent --show-error --form 'sprunge=<-' http://sprunge.us\n\n"
 fi
