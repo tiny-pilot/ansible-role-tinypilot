@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Reads the tinypilot-updater systemd log and cuts out the junk content.
 

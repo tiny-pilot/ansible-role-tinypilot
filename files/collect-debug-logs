@@ -3,6 +3,10 @@
 # Exit on unset variable.
 set -u
 
+# shellcheck disable=SC2024
+# We're intentionally running commands as root and redirecting as
+# regular user.
+
 print_help() {
     cat << EOF
 Usage: ${0##*/} [-hq]
@@ -116,7 +120,7 @@ print_info "\n\n"
 SHOULD_UPLOAD=false
 if [ "$FLAG_SILENT_MODE" != "true" ]; then
     echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
-    read answer
+    read -r answer
     printf "\n"
     if [ "$answer" != "${answer#[Yy]}" ]; then
         SHOULD_UPLOAD=true
@@ -126,7 +130,7 @@ fi
 if [ "$SHOULD_UPLOAD" == "true" ]; then
     URL=$(cat "$LOG_FILE" | curl --silent --show-error --form 'sprunge=<-' http://sprunge.us)
     printf "Copy the following URL into your bug report:\n\n\t"
-    printf "${URL}\n\n"
+    printf "%s\n\n" "${URL}"
 else
     print_info "Log file not uploaded.\n"
     print_info "If you decide to share it, run:\n\n"

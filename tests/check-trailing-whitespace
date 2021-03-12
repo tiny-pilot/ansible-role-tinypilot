@@ -9,8 +9,9 @@ set -e
 # Exit on unset variable.
 set -u
 
-if egrep \
+if grep \
   "\s$" \
+  --extended-regexp \
   --line-number \
   --binary-files=without-match \
   --dereference-recursive \

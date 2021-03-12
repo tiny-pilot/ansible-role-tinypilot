@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Tears down USB gadgets per: https://www.kernel.org/doc/Documentation/usb/gadget_configfs.txt
 
