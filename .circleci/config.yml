@@ -11,6 +11,17 @@ jobs:
       - run:
           name: Check that all text files end in a trailing newline
           command: tests/check-trailing-newline
+  check_bash:
+    docker:
+      - image: koalaman/shellcheck-alpine:v0.7.1
+    steps:
+      - run:
+          name: Install dependencies
+          command: apk add bash git grep ssh
+      - checkout
+      - run:
+          name: Run static analysis on bash scripts
+          command: ./tests/check-bash
   build:
     machine:
       image: ubuntu-2004:202010-01
@@ -40,4 +51,5 @@ workflows:
   all-tests:
     jobs:
       - check_whitespace
+      - check_bash
       - build
