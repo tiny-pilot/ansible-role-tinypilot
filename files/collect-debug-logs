@@ -55,65 +55,65 @@ print_info "Writing diagnostic logs to $LOG_FILE\n"
   echo "https://tinypilotkvm.com"
   printf "Timestamp: %s" "$(date --iso-8601=seconds)"
   printf "\n\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
-echo "Software versions" >> "$LOG_FILE"
+echo "Software versions" >> "${LOG_FILE}"
 
 print_info "Checking TinyPilot version...\n"
-cd /opt/tinypilot
-printf "TinyPilot version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
+cd /opt/tinypilot && \
+  printf "TinyPilot version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "${LOG_FILE}"
 
 print_info "Checking uStreamer version...\n"
-cd /opt/ustreamer
-printf "uStreamer version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "$LOG_FILE"
+cd /opt/ustreamer && \
+  printf "uStreamer version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "${LOG_FILE}"
 
 print_info "Checking OS version...\n"
 {
   printf "OS version: %s\n" "$(uname -a)"
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking for voltage issues...\n"
 {
   echo "voltage logs"
   sudo journalctl -xe | grep -i "voltage"
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking TinyPilot configuration...\n"
 {
   printf "TinyPilot configuration\n"
   cat /lib/systemd/system/tinypilot.service
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking TinyPilot logs...\n"
 {
   printf "TinyPilot logs\n"
   sudo journalctl -u tinypilot | tail -n 200
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking TinyPilot updater logs...\n"
 {
-  printf "TinyPilot update logs\n" >> "$LOG_FILE"
-  "$(dirname $0)/read-update-log" | tail -n 200 >> "$LOG_FILE"
+  printf "TinyPilot update logs\n"
+  "$(dirname \"$0\")/read-update-log" | tail -n 200
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking uStreamer configuration...\n"
 {
   printf "uStreamer configuration\n"
   cat /lib/systemd/system/ustreamer.service
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking uStreamer logs...\n"
 {
   printf "uStreamer logs\n"
   sudo journalctl -u ustreamer | tail -n 80
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Checking nginx logs...\n"
 {
@@ -124,10 +124,10 @@ print_info "Checking nginx logs...\n"
   printf "\n\n"
   sudo tail -n 30 /var/log/nginx/access.log
   printf "\n"
-} >> "$LOG_FILE"
+} >> "${LOG_FILE}"
 
 print_info "Your log:\n\n"
-cat "$LOG_FILE"
+cat "${LOG_FILE}"
 print_info "%s\n" "-------------------------------------"
 print_info "\n\n"
 
@@ -142,7 +142,7 @@ if [ "$FLAG_SILENT_MODE" != "true" ]; then
 fi
 
 if [ "$SHOULD_UPLOAD" == "true" ]; then
-    URL=$(cat "$LOG_FILE" | curl --silent --show-error --form 'sprunge=<-' http://sprunge.us)
+    URL=$(curl --silent --show-error --form 'sprunge=<-' http://sprunge.us < "${LOG_FILE}")
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "%s\n\n" "${URL}"
 else
