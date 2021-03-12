@@ -36,7 +36,7 @@ for config in ${CONFIGS} ; do
     [ "${config}" == "${CONFIGS}" ] && break
 
     # Remove all functions from config
-    for function in "${FUNCTIONS}" ; do
+    for function in ${FUNCTIONS} ; do
         file="${config}/$(basename ${function})"
         [ -e "${file}" ] && rm "${file}"
     done
