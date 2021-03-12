@@ -97,7 +97,7 @@ print_info "Checking TinyPilot logs...\n"
 print_info "Checking TinyPilot updater logs...\n"
 {
   printf "TinyPilot update logs\n"
-  "$(dirname \"$0\")/read-update-log" | tail -n 200
+  "$(dirname "$0")/read-update-log" | tail -n 200
   printf "\n"
 } >> "${LOG_FILE}"
 

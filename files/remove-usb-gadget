@@ -37,8 +37,8 @@ for config in ${CONFIGS} ; do
 
     # Remove all functions from config
     for function in ${FUNCTIONS} ; do
-        file="${config}/$(basename \"${function}\")"
-        [ -e "${file}" ] && rm "${file}"
+      file="${config}/$(basename "${function}")"
+      [ -e "${file}" ] && rm "${file}"
     done
 
     # Remove strings in config
