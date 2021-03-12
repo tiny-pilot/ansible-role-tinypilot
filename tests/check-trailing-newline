@@ -20,7 +20,7 @@ SUCCESS=0
 for F in ${FILES[*]}
 do
   if ! [[ -s "$F" && -z "$(tail -c 1 "$F")" ]]; then
-    printf "File must end in a trailing newline: $F\n"
+    printf "File must end in a trailing newline: %s\n" "$F"
     SUCCESS=-1
   fi
 done
