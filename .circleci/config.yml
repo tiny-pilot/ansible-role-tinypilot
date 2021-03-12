@@ -17,7 +17,7 @@ jobs:
     steps:
       - run:
           name: Install dependencies
-          command: apk add bash git grep ssh
+          command: apk add bash git grep openssh
       - checkout
       - run:
           name: Run static analysis on bash scripts
