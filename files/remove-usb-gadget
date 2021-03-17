@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Tears down USB gadgets per: https://www.kernel.org/doc/Documentation/usb/gadget_configfs.txt
 
@@ -31,14 +31,14 @@ readonly STRINGS="strings/0x409"
 readonly FUNCTIONS="functions/*"
 
 # Walk items in `configs`
-for config in "${CONFIGS}" ; do
+for config in ${CONFIGS} ; do
     # Exit early if there are no entries
-    [ $config == "${CONFIGS}" ] && break
+    [ "${config}" == "${CONFIGS}" ] && break
 
     # Remove all functions from config
-    for function in "${FUNCTIONS}" ; do
-        file="${config}/$(basename ${function})"
-        [ -e "${file}" ] && rm "${file}"
+    for function in ${FUNCTIONS} ; do
+      file="${config}/$(basename "${function}")"
+      [ -e "${file}" ] && rm "${file}"
     done
 
     # Remove strings in config
@@ -48,7 +48,7 @@ for config in "${CONFIGS}" ; do
 done
 
 # Remove functions
-for function in "${FUNCTIONS}" ; do
+for function in ${FUNCTIONS} ; do
     [ -d "${function}" ] && rmdir "${function}"
 done
 
