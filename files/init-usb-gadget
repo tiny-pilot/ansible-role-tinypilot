@@ -69,7 +69,7 @@ D=$(mktemp)
   echo -ne \\x26\\xFF\\x00  #   Logical Maximum (255)
   echo -ne \\x95\\x06       #   Report Count (6)
   echo -ne \\x81\\x00       #   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
-  echo -ne \\xC0                    # End Collection
+  echo -ne \\xC0            # End Collection
 } >> "$D"
 cp "$D" "${KEYBOARD_FUNCTIONS_DIR}/report_desc"
 
