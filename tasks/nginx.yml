@@ -35,7 +35,13 @@
             proxy_pass http://tinypilot;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "Upgrade";
+            # Since this is a connection upgrade, we don't inherit the settings from
+            # above. We need these so that nginx forwards requests properly to
+            # Flask-SocketIO.
+            # See: https://github.com/miguelgrinberg/Flask-SocketIO/issues/1501#issuecomment-802082048
             proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-Host $http_host;
+            proxy_set_header X-Forwarded-Proto $scheme;
           }
           location /state {
             proxy_pass http://ustreamer;
