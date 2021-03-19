@@ -37,8 +37,6 @@ echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/protocol" # Keyboard
 echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/subclass" # Boot interface subclass
 echo 8 > "${KEYBOARD_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
-D=$(mktemp)
-
 {
   echo -ne \\x05\\x01       # Usage Page (Generic Desktop Ctrls)
   echo -ne \\x09\\x06       # Usage (Keyboard)
@@ -70,8 +68,7 @@ D=$(mktemp)
   echo -ne \\x95\\x06       #   Report Count (6)
   echo -ne \\x81\\x00       #   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
   echo -ne \\xC0            # End Collection
-} >> "$D"
-cp "$D" "${KEYBOARD_FUNCTIONS_DIR}/report_desc"
+} > "${KEYBOARD_FUNCTIONS_DIR}/report_desc"
 
 # Mouse
 MOUSE_FUNCTIONS_DIR="functions/hid.mouse"
@@ -80,7 +77,6 @@ echo 0 > "${MOUSE_FUNCTIONS_DIR}/protocol"
 echo 0 > "${MOUSE_FUNCTIONS_DIR}/subclass"
 echo 5 > "${MOUSE_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
-D=$(mktemp)
 {
 echo -ne \\x05\\x01      # USAGE_PAGE (Generic Desktop)
 echo -ne \\x09\\x02      # USAGE (Mouse)
@@ -119,8 +115,7 @@ echo -ne \\x75\\x08      #   REPORT_SIZE (8)
 echo -ne \\x95\\x01      #   REPORT_COUNT (1)
 echo -ne \\x81\\x06      #   INPUT (Data,Var,Rel)
 echo -ne \\xC0           # END_COLLECTION
-} >> "$D"
-cp "$D" "${MOUSE_FUNCTIONS_DIR}/report_desc"
+} > "${MOUSE_FUNCTIONS_DIR}/report_desc"
 
 CONFIG_INDEX=1
 CONFIGS_DIR="configs/c.${CONFIG_INDEX}"
