@@ -9,7 +9,7 @@
 
 - name: import nginx role
   import_role:
-    name: geerlingguy.nginx
+    name: ansible-role-nginx
   vars:
     ustreamer_port: 8001
     nginx_upstreams:
