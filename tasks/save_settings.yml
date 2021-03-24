@@ -1,0 +1,24 @@
+---
+- name: get default settings
+  include_vars:
+    dir: "{{ role_path }}/defaults"
+    name: tinypilot_default_settings
+
+- name: initialize settings
+  set_fact:
+    tinypilot_settings: {}
+
+- name: determine which settings have changed
+  set_fact:
+    tinypilot_settings: "{{ tinypilot_settings | combine({item.key: vars[item.key]}) }}"
+  when: vars[item.key] != item.value
+  with_dict: "{{ tinypilot_default_settings }}"
+
+- name: write settings file
+  template:
+    src: settings.yml.j2
+    dest: "{{ tinypilot_settings_file }}"
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+    mode: '0644'
+  when: tinypilot_settings | length > 0

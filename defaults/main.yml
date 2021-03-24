@@ -16,3 +16,17 @@ tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
 tinypilot_enable_debug_logging: no
 tinypilot_pip_args: ""
+tinypilot_settings_file: /home/tinypilot/settings.yml
+
+ustreamer_interface: '127.0.0.1'
+ustreamer_port: 8001
+# Temporary workaround for a uStreamer bug that affects TinyPilot.
+# See: https://github.com/mtlynch/ustreamer/commit/3ee535ce83a343ecae504a0a37efb08721126953
+ustreamer_repo: https://github.com/mtlynch/ustreamer.git
+ustreamer_repo_version: 'semwait'
+ustreamer_capture_device: null
+ustreamer_encoder: null
+ustreamer_format: null
+ustreamer_resolution: null
+ustreamer_persistent: null
+ustreamer_desired_fps: null
