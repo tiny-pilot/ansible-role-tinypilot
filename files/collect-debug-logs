@@ -143,14 +143,16 @@ if [ "$FLAG_SILENT_MODE" != "true" ]; then
     fi
 fi
 
+readonly LOG_UPLOAD_URL="https://logs.tinypilotkvm.com"
+
 if [ "$SHOULD_UPLOAD" == "true" ]; then
-    URL=$(curl --silent --show-error --form 'sprunge=<-' http://sprunge.us < "${LOG_FILE}")
+    URL=$(curl --silent --show-error --form "_=@${LOG_FILE}" "${LOG_UPLOAD_URL}")
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "%s\n\n" "${URL}"
 else
     print_info "Log file not uploaded."
     print_info "If you decide to share it, run:"
     print_info ""
-    print_info "  curl --silent --show-error --form 'sprunge=<-' http://sprunge.us < ${LOG_FILE}"
+    print_info "  curl -F '"_=@${LOG_FILE}"' ${LOG_UPLOAD_URL}"
     print_info ""
 fi
