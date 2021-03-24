@@ -153,6 +153,6 @@ else
     print_info "Log file not uploaded."
     print_info "If you decide to share it, run:"
     print_info ""
-    print_info "  curl -F '"_=@${LOG_FILE}"' ${LOG_UPLOAD_URL}"
+    print_info "  curl -F \"_=@${LOG_FILE}\" ${LOG_UPLOAD_URL}"
     print_info ""
 fi
