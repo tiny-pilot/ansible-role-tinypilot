@@ -1,4 +1,4 @@
 ---
 - src: mtlynch.ustreamer
-- src: geerlingguy.nginx
-  version: 2.8.0
+- src: https://github.com/tiny-pilot/ansible-role-nginx
+  version: 2.8.1
