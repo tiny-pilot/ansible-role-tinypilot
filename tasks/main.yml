@@ -54,6 +54,7 @@
     - collect-debug-logs
     - read-update-log
     - update
+    - update-settings
 
 - name: store passwordless sudo paths
   set_fact:
@@ -143,3 +144,8 @@
     mode: '0644'
   notify:
     - reload tinypilot updater systemd config
+
+- name: save TinyPilot settings file
+  import_tasks: save_settings.yml
+  tags:
+    - config
