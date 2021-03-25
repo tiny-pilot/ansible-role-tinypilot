@@ -144,8 +144,3 @@
     mode: '0644'
   notify:
     - reload tinypilot updater systemd config
-
-- name: save TinyPilot settings file
-  import_tasks: save_settings.yml
-  tags:
-    - config

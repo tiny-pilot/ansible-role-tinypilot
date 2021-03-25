@@ -11,6 +11,7 @@
   import_role:
     name: ansible-role-nginx
   vars:
+    ustreamer_port: 8001
     nginx_upstreams:
       - name: tinypilot
         servers:
