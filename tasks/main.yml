@@ -54,7 +54,7 @@
     - collect-debug-logs
     - read-update-log
     - update
-    - update-settings
+    - update-video-settings
 
 - name: store passwordless sudo paths
   set_fact:

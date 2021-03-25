@@ -1,12 +1,9 @@
 #!/bin/bash
 #
-# Update TinyPilot installation settings.
+# Update uStreamer video settings.
 
 # Exit on first error.
 set -e
-
-# Echo commands to stdout.
-set -x
 
 # Treat undefined environment variables as errors.
 set -u
@@ -14,14 +11,14 @@ set -u
 print_help() {
     cat << EOF
 Usage: ${0##*/} [-hq]
-Collect debug logs.
+Update uStreamer video settings.
 
     -h Display this help and exit.
-    -q Run in silent mode without prompting user for inputs.
+    -q Run in quiet mode.
 EOF
 }
 
-FLAG_SILENT_MODE=false
+FLAG_QUIET_MODE=false
 
 # Parse command-line arguments.
 while getopts "hq" opt; do
@@ -31,7 +28,7 @@ while getopts "hq" opt; do
             exit
             ;;
         q)
-            FLAG_SILENT_MODE=true
+            FLAG_QUIET_MODE=true
             ;;
         *)
             print_help >&2
@@ -40,10 +37,18 @@ while getopts "hq" opt; do
     esac
 done
 
+
+if [ ${FLAG_QUIET_MODE} = true ]; then
+  # Ignore stdout.
+  exec 1> /dev/null
+else
+  # Echo commands to stdout.
+  set -x
+fi
+
 # Check if there's a settings file with extra installation settings.
 readonly TINYPILOT_SETTINGS_FILE="/home/tinypilot/settings.yml"
-EXTRA_VARS_PATH=""
-if [ -s "${TINYPILOT_SETTINGS_FILE}" ]; then
+if [ -f "${TINYPILOT_SETTINGS_FILE}" ]; then
   echo "Using settings file at: ${TINYPILOT_SETTINGS_FILE}"
   EXTRA_VARS_PATH="@${TINYPILOT_SETTINGS_FILE}"
 else
@@ -53,25 +58,22 @@ fi
 readonly EXTRA_VARS_PATH
 
 readonly INSTALLER_DIR="/opt/tinypilot-updater"
-sudo chown "$(whoami):$(whoami)" --recursive "$INSTALLER_DIR"
 pushd "${INSTALLER_DIR}"
 
 . venv/bin/activate
 
-readonly TINYPILOT_ROLE_NAME="mtlynch.tinypilot"
+readonly PLAYBOOK=$(mktemp --suffix ".yml")
+readonly USTREAMER_ROLE_NAME="mtlynch.ustreamer"
 echo "- hosts: localhost
   connection: local
   become: true
   become_method: sudo
   gather_facts: no
   roles:
-    - role: ${TINYPILOT_ROLE_NAME}" > update-settings.yml
+    - role: ${USTREAMER_ROLE_NAME}" > "${PLAYBOOK}"
 
 ansible-playbook \
-  update-settings.yml \
+  "${PLAYBOOK}" \
   --inventory localhost, \
   --extra-vars "${EXTRA_VARS_PATH}" \
-  --tags "config" \
-  -vvv
-
-sudo chown "tinypilot:tinypilot" --recursive "$INSTALLER_DIR"
+  --tags "systemd-config"
