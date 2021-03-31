@@ -10,7 +10,6 @@ Available variables are listed below, along with default values (see [defaults/m
 
 ```yaml
 tinypilot_group: tinypilot
-tinypilot_user: tinypilot
 tinypilot_dir: /opt/tinypilot
 tinypilot_repo: https://github.com/mtlynch/tinypilot.git
 tinypilot_repo_branch: master
