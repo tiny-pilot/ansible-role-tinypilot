@@ -122,6 +122,17 @@ echo -ne \\xC0           # END_COLLECTION
 } >> "$D"
 cp "$D" "${MOUSE_FUNCTIONS_DIR}/report_desc"
 
+# Mass Storage
+# See here for more info:
+# - https://www.kernel.org/doc/html/latest/usb/mass-storage.html
+# - https://www.kernel.org/doc/Documentation/ABI/testing/configfs-usb-gadget-mass-storage
+MASS_STORAGE_FUNCTIONS_DIR="functions/mass_storage.0"
+mkdir -p "${MASS_STORAGE_FUNCTIONS_DIR}"
+echo 1 > "${MASS_STORAGE_FUNCTIONS_DIR}/stall"
+echo 0 > "${MASS_STORAGE_FUNCTIONS_DIR}/lun.0/cdrom"
+echo 1 > "${MASS_STORAGE_FUNCTIONS_DIR}/lun.0/ro"
+echo 0 > "${MASS_STORAGE_FUNCTIONS_DIR}/lun.0/nofua"
+
 CONFIG_INDEX=1
 CONFIGS_DIR="configs/c.${CONFIG_INDEX}"
 mkdir -p "$CONFIGS_DIR"
@@ -133,6 +144,7 @@ echo "Config ${CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configurati
 
 ln -s "$KEYBOARD_FUNCTIONS_DIR" "${CONFIGS_DIR}/"
 ln -s "$MOUSE_FUNCTIONS_DIR" "${CONFIGS_DIR}/"
+ln -s "$MASS_STORAGE_FUNCTIONS_DIR" "${CONFIGS_DIR}/"
 ls /sys/class/udc > UDC
 
 chmod 777 /dev/hidg0
