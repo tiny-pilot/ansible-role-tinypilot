@@ -5,7 +5,7 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-User={{ tinypilot_user }}
+User=root
 WorkingDirectory={{ tinypilot_dir }}
 ExecStart={{ tinypilot_dir }}/venv/bin/python app/main.py
 Environment=HOST={{ tinypilot_interface }}
