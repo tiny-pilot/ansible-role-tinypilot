@@ -65,6 +65,7 @@
       - "{{ tinypilot_privileged_dir }}/collect-debug-logs"
       - "{{ tinypilot_privileged_dir }}/read-update-log"
       - "{{ tinypilot_privileged_dir }}/update"
+      - "{{ tinypilot_privileged_dir }}/update-video-settings"
 
 - name: enable tinypilot to execute a whitelist of commands as sudo
   lineinfile:
