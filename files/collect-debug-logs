@@ -73,6 +73,14 @@ print_info "Checking OS version..."
   printf "\n"
 } >> "${LOG_FILE}"
 
+echo "TinyPilot state" >> "${LOG_FILE}"
+
+print_info "Checking temperature..."
+printf "%s\n" "$(vcgencmd measure_temp)" >> "${LOG_FILE}"
+
+print_info "Checking throttled state..."
+printf "%s\n\n" "$(vcgencmd get_throttled)" >> "${LOG_FILE}"
+
 print_info "Checking for voltage issues..."
 {
   echo "voltage logs"
