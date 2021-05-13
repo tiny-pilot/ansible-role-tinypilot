@@ -78,7 +78,7 @@ MOUSE_FUNCTIONS_DIR="functions/hid.mouse"
 mkdir -p "$MOUSE_FUNCTIONS_DIR"
 echo 0 > "${MOUSE_FUNCTIONS_DIR}/protocol"
 echo 0 > "${MOUSE_FUNCTIONS_DIR}/subclass"
-echo 5 > "${MOUSE_FUNCTIONS_DIR}/report_length"
+echo 7 > "${MOUSE_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
 D=$(mktemp)
 {
