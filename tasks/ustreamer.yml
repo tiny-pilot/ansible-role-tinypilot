@@ -1,7 +1,7 @@
 ---
 - name: import uStreamer role
   import_role:
-    name: mtlynch.ustreamer
+    name: ansible-role-ustreamer
   vars:
     ustreamer_interface: '127.0.0.1'
     ustreamer_port: 8001

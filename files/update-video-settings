@@ -61,7 +61,7 @@ pushd "${INSTALLER_DIR}"
 . venv/bin/activate
 
 readonly PLAYBOOK=$(mktemp --suffix ".yml")
-readonly USTREAMER_ROLE_NAME="mtlynch.ustreamer"
+readonly USTREAMER_ROLE_NAME="ansible-role-ustreamer"
 echo "- hosts: localhost
   connection: local
   become: true

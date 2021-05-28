@@ -20,7 +20,7 @@ tinypilot_keyboard_interface: /dev/hidg0
 
 ## Dependencies
 
-* [mtlynch.ustreamer](https://github.com/mtlynch/ansible-role-ustreamer)
+* [tiny-pilot.ustreamer](https://github.com/tiny-pilot/ansible-role-ustreamer)
 * [tiny-pilot.nginx](https://github.com/tiny-pilot/ansible-role-nginx)
 
 ## Example Playbook
