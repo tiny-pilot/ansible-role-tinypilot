@@ -58,7 +58,7 @@ six==1.15.0
 subprocess-tee==0.2.0
 text-unidecode==1.3
 typing-extensions==3.7.4.3
-urllib3==1.26.4
+urllib3==1.26.5
 websocket-client==0.58.0
 yamllint==1.26.0
 zipp==3.4.1
