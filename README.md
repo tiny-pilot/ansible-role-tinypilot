@@ -1,6 +1,7 @@
 # Ansible Role: TinyPilot
 
-[![CircleCI](https://circleci.com/gh/mtlynch/ansible-role-tinypilot.svg?style=svg)](https://circleci.com/gh/mtlynch/ansible-role-tinypilot) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-tinypilot-blue.svg?style=flat-square)](https://galaxy.ansible.com/mtlynch/tinypilot) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
+[![CircleCI](https://circleci.com/gh/tiny-pilot/ansible-role-tinypilot.svg?style=svg)](https://circleci.com/gh/tiny-pilot/ansible-role-tinypilot)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
 
 Ansible role for [TinyPilot KVM](https://github.com/mtlynch/tinypilot).
 
@@ -30,13 +31,13 @@ tinypilot_keyboard_interface: /dev/hidg0
 ```yaml
 - hosts: all
   roles:
-    - role: mtlynch.tinypilot
+    - role: ansible-role-tinypilot
 ```
 
 ### Running Example Playbook
 
 ```bash
-ansible-galaxy install mtlynch.tinypilot
+ansible-galaxy install git+https://github.com/tiny-pilot/ansible-role-tinypilot.git
 ansible-playbook example.yml
 ```
 
