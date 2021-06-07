@@ -11,6 +11,8 @@ Environment=PYTHONPATH={{ tinypilot_dir }}/app
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=tinypilot-update-svc
+TimeoutSec=900
+KillSignal=SIGKILL
 
 [Install]
 WantedBy=local-fs.target
