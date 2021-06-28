@@ -1,6 +1,8 @@
 ---
 - name: install uStreamer
   import_tasks: ustreamer.yml
+  tags:
+    - ustreamer
 
 - name: install nginx
   import_tasks: nginx.yml
