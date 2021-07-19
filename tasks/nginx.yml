@@ -54,7 +54,7 @@
           location / {
             proxy_pass http://tinypilot;
           }
-          location ~* ^/.+\.(html|js|js.map|css)$ {
+          location ~* ^/.+\.(html|js|js.map|css|woff|woff2)$ {
             root "{{ tinypilot_dir }}/app/static";
 
             # Disable caching
