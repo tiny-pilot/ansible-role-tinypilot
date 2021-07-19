@@ -57,12 +57,14 @@
           location ~* ^/.+\.(html|js|js.map|css|woff|woff2)$ {
             root "{{ tinypilot_dir }}/app/static";
 
-            # Disable caching
+            # We cache assets to prevent the browser from making redundant
+            # requests to the same files while loading the page. (Observed on
+            # Chrome 91.) We don’t want caching otherwise, though, in order to
+            # avoid stale files after users update their device. Note, that in
+            # addition to `max-age`, the browser’s caching behaviour is relative
+            # to the `Last-Modified` header, so we make that seem recent.
             add_header Last-Modified $date_gmt;
-            add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
-            if_modified_since off;
-            expires off;
-            etag off;
+            add_header Cache-Control 'public, max-age=10s';
           }
           location ~* ^/.+\.(jpg|jpeg|png|ico)$ {
             root "{{ tinypilot_dir }}/app/static";
