@@ -111,6 +111,17 @@
   notify:
     - restart TinyPilot service
 
+- name: create TinyPilot app settings
+  template:
+    src: tinypilot-app-settings.cfg.j2
+    dest: "{{ tinypilot_app_settings_file }}"
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+  notify:
+    - restart TinyPilot service
+  tags:
+    - app-settings
+
 - name: fix TinyPilot folder permissions
   file:
     path: "{{ tinypilot_dir }}"
@@ -132,6 +143,8 @@
   notify:
     - reload TinyPilot systemd config
     - restart TinyPilot service
+  tags:
+    - systemd-config
 
 - name: enable systemd TinyPilot service file
   systemd:

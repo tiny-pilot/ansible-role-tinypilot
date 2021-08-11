@@ -15,3 +15,4 @@ tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
 tinypilot_enable_debug_logging: no
 tinypilot_pip_args: ""
+tinypilot_app_settings_file: "{{ tinypilot_dir }}/app_settings.cfg"
