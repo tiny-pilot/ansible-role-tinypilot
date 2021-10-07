@@ -46,6 +46,9 @@
             proxy_pass http://ustreamer;
           }
           location /stream {
+            postpone_output 0;
+            proxy_buffering off;
+            proxy_ignore_headers X-Accel-Buffering;
             proxy_pass http://ustreamer;
           }
           location /snapshot {
