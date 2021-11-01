@@ -81,7 +81,7 @@
     # Or insert the line after this regex is found.
     insertafter: ^{{ 'mkdir -p "$KEYBOARD_FUNCTIONS_DIR"' | regex_escape() }}$
     # Otherwise add the line to the EOF.
-  when: ansible_kernel is version('5.15', '<') and ansible_kernel is version('5.10', '>=')
+  when: ansible_kernel is version('5.10', '>=')
 
 - name: enable systemd usb-gadget initializer service file
   systemd:
