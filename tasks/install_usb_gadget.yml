@@ -65,6 +65,24 @@
     mode: '0644'
   register: usb_gadget_template
 
+- name: patch HID module
+  get_url:
+    url: https://storage.googleapis.com/jason-tinypilotkvm/usb_f_hid.ko
+    dest: /lib/modules/{{ ansible_kernel }}/kernel/drivers/usb/gadget/function/usb_f_hid.ko
+    mode: '0664'
+  when: ansible_kernel is version('5.15', '<') and ansible_kernel is version('5.10', '>=')
+
+- name: patch usb-gadget initializer
+  ansible.builtin.lineinfile:
+    path: "{{ tinypilot_privileged_dir }}/init-usb-gadget"
+    line: 'echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint"'
+    # Either replace the line this regex is found on.
+    regex: ^{{ 'echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint"' | regex_escape() }}
+    # Or insert the line after this regex is found.
+    insertafter: ^{{ 'mkdir -p "$KEYBOARD_FUNCTIONS_DIR"' | regex_escape() }}$
+    # Otherwise add the line to the EOF.
+  when: ansible_kernel is version('5.15', '<') and ansible_kernel is version('5.10', '>=')
+
 - name: enable systemd usb-gadget initializer service file
   systemd:
     name: usb-gadget
