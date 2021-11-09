@@ -15,3 +15,8 @@
     daemon_reload: yes
     # Never run automatically.
     enabled: no
+
+- name: start usb-gadget service
+  service:
+    name: usb-gadget
+    state: started
