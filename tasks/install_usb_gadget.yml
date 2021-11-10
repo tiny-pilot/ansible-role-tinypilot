@@ -109,4 +109,4 @@
   command: modprobe usb_f_hid
   when: patch_hid_module
   notify:
-    - start usb-gadget service
+    - try start usb-gadget service

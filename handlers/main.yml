@@ -16,7 +16,8 @@
     # Never run automatically.
     enabled: no
 
-- name: start usb-gadget service
+- name: try start usb-gadget service
   service:
     name: usb-gadget
     state: started
+  ignore_errors: yes
