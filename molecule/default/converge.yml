@@ -2,6 +2,10 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+        cache_valid_time: 600
     - name: "Include ansible-role-tinypilot"
       include_role:
         name: "ansible-role-tinypilot"
