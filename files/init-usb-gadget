@@ -11,31 +11,34 @@ set -x
 # Treat undefined environment variables as errors.
 set -u
 
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+# shellcheck source=lib/usb-gadget.sh
+source "${SCRIPT_DIR}/lib/usb-gadget.sh"
+
+
 modprobe libcomposite
 
 # Adapted from https://github.com/girst/hardpass-sendHID/blob/master/README.md
 
-cd /sys/kernel/config/usb_gadget/
-mkdir -p g1
-cd g1
+cd "${USB_GADGET_PATH}"
+mkdir -p "${USB_DEVICE_DIR}"
+cd "${USB_DEVICE_DIR}"
 
 echo 0x1d6b > idVendor  # Linux Foundation
 echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # v1.0.0
 echo 0x0200 > bcdUSB    # USB2
 
-STRINGS_DIR="strings/0x409"
-mkdir -p "$STRINGS_DIR"
-echo "6b65796d696d6570690" > "${STRINGS_DIR}/serialnumber"
-echo "tinypilot" > "${STRINGS_DIR}/manufacturer"
-echo "Multifunction USB Device" > "${STRINGS_DIR}/product"
+mkdir -p "$USB_STRINGS_DIR"
+echo "6b65796d696d6570690" > "${USB_STRINGS_DIR}/serialnumber"
+echo "tinypilot" > "${USB_STRINGS_DIR}/manufacturer"
+echo "Multifunction USB Device" > "${USB_STRINGS_DIR}/product"
 
 # Keyboard
-KEYBOARD_FUNCTIONS_DIR="functions/hid.keyboard"
-mkdir -p "$KEYBOARD_FUNCTIONS_DIR"
-echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/protocol" # Keyboard
-echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/subclass" # Boot interface subclass
-echo 8 > "${KEYBOARD_FUNCTIONS_DIR}/report_length"
+mkdir -p "$USB_KEYBOARD_FUNCTIONS_DIR"
+echo 1 > "${USB_KEYBOARD_FUNCTIONS_DIR}/protocol" # Keyboard
+echo 1 > "${USB_KEYBOARD_FUNCTIONS_DIR}/subclass" # Boot interface subclass
+echo 8 > "${USB_KEYBOARD_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
 D=$(mktemp)
 
@@ -78,11 +81,10 @@ if [[ -f "${KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint" ]]; then
 fi
 
 # Mouse
-MOUSE_FUNCTIONS_DIR="functions/hid.mouse"
-mkdir -p "$MOUSE_FUNCTIONS_DIR"
-echo 0 > "${MOUSE_FUNCTIONS_DIR}/protocol"
-echo 0 > "${MOUSE_FUNCTIONS_DIR}/subclass"
-echo 7 > "${MOUSE_FUNCTIONS_DIR}/report_length"
+mkdir -p "$USB_MOUSE_FUNCTIONS_DIR"
+echo 0 > "${USB_MOUSE_FUNCTIONS_DIR}/protocol"
+echo 0 > "${USB_MOUSE_FUNCTIONS_DIR}/subclass"
+echo 7 > "${USB_MOUSE_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
 D=$(mktemp)
 {
@@ -124,20 +126,18 @@ echo -ne \\x95\\x01      #   REPORT_COUNT (1)
 echo -ne \\x81\\x06      #   INPUT (Data,Var,Rel)
 echo -ne \\xC0           # END_COLLECTION
 } >> "$D"
-cp "$D" "${MOUSE_FUNCTIONS_DIR}/report_desc"
+cp "$D" "${USB_MOUSE_FUNCTIONS_DIR}/report_desc"
 
 CONFIG_INDEX=1
-CONFIGS_DIR="configs/c.${CONFIG_INDEX}"
-mkdir -p "$CONFIGS_DIR"
-echo 250 > "${CONFIGS_DIR}/MaxPower"
+CONFIG_INDEX_DIR="${USB_CONFIGS_DIR}/c.${CONFIG_INDEX}"
+mkdir -p "$CONFIG_INDEX_DIR"
+echo 250 > "${CONFIG_INDEX_DIR}/MaxPower"
 
-CONFIGS_STRINGS_DIR="${CONFIGS_DIR}/strings/0x409"
+CONFIGS_STRINGS_DIR="${CONFIG_INDEX_DIR}/${USB_STRINGS_DIR}"
 mkdir -p "$CONFIGS_STRINGS_DIR"
 echo "Config ${CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configuration"
 
-ln -s "$KEYBOARD_FUNCTIONS_DIR" "${CONFIGS_DIR}/"
-ln -s "$MOUSE_FUNCTIONS_DIR" "${CONFIGS_DIR}/"
-ls /sys/class/udc > UDC
+ln -s "$USB_KEYBOARD_FUNCTIONS_DIR" "${CONFIG_INDEX_DIR}/"
+ln -s "$USB_MOUSE_FUNCTIONS_DIR" "${CONFIG_INDEX_DIR}/"
 
-chmod 777 /dev/hidg0
-chmod 777 /dev/hidg1
+usb_gadget_activate
