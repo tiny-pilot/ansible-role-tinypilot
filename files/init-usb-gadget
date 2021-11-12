@@ -15,7 +15,6 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 # shellcheck source=lib/usb-gadget.sh
 source "${SCRIPT_DIR}/lib/usb-gadget.sh"
 
-
 modprobe libcomposite
 
 # Adapted from https://github.com/girst/hardpass-sendHID/blob/master/README.md
