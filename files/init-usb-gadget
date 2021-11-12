@@ -73,10 +73,10 @@ D=$(mktemp)
   echo -ne \\x81\\x00       #   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
   echo -ne \\xC0            # End Collection
 } >> "$D"
-cp "$D" "${KEYBOARD_FUNCTIONS_DIR}/report_desc"
+cp "$D" "${USB_KEYBOARD_FUNCTIONS_DIR}/report_desc"
 # Enable pre-boot events (if the gadget driver supports it).
-if [[ -f "${KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint" ]]; then
-  echo 1 > "${KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint"
+if [[ -f "${USB_KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint" ]]; then
+  echo 1 > "${USB_KEYBOARD_FUNCTIONS_DIR}/no_out_endpoint"
 fi
 
 # Mouse
