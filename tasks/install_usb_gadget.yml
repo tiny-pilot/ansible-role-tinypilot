@@ -19,6 +19,7 @@
     path: "{{ config_txt_path }}"
     create: no
     line: dtoverlay=dwc2
+  register: boot_config_lineinfile
   when: boot_config_stat.stat.exists
 
 - name: check for an /etc/modules file
@@ -31,7 +32,13 @@
     path: /etc/modules
     create: no
     line: dwc2
+  register: modules_lineinfile
   when: etc_modules_stat.stat.exists
+
+- name: determine if a reboot is required
+  set_fact:
+    reboot_required: >-
+      {{ boot_config_lineinfile.changed or modules_lineinfile.changed }}
 
 - name: create TinyPilot privileged folder
   file:
@@ -91,11 +98,11 @@
   service:
     name: usb-gadget
     state: stopped
-  when: patch_hid_module
+  when: patch_hid_module and not reboot_required
 
 - name: unload HID module
   command: modprobe --remove usb_f_hid
-  when: patch_hid_module
+  when: patch_hid_module and not reboot_required
 
 - name: patch HID module
   get_url:
@@ -107,6 +114,6 @@
 
 - name: load HID module
   command: modprobe usb_f_hid
-  when: patch_hid_module
+  when: patch_hid_module and not reboot_required
   notify:
     - start usb-gadget service
