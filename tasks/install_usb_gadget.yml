@@ -92,6 +92,7 @@
     patch_hid_module: >-
       {{ ansible_kernel is version('5.15', '<')
          and ansible_kernel is version('5.10', '>=')
+         and hid_module_stat.stat.checksum is defined
          and hid_module_stat.stat.checksum != '45f9c885e8b0e1d2fdaf4aec2179a38ad9a1c76c71f44c997c99a865fdfe72d7' }}
 
 - name: ensure HID module is not in use
