@@ -18,6 +18,9 @@
       - name: ustreamer
         servers:
           - "127.0.0.1:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
+      - name: janus-ws
+        servers:
+          - "127.0.0.1:{{ janus_ws_port }} fail_timeout=1s max_fails=600"
     nginx_vhosts:
       - listen: "{{ tinypilot_external_port }} default_server"
         server_name: "tinypilot"
@@ -56,6 +59,26 @@
           }
           location / {
             proxy_pass http://tinypilot;
+          }
+          location /janus/ws {
+            rewrite ^/janus/ws$ / break;
+            rewrite ^/janus/ws\?(.*)$ /?$1 break;
+            proxy_pass http://janus-ws;
+
+            # Proxy Configs
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Scheme $scheme;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Port $server_port;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # Websocket Configs
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_connect_timeout 1h;
+            proxy_send_timeout 1h;
+            proxy_read_timeout 1h;
           }
           location ~* ^/.+\.(html|js|js.map|css|woff|woff2)$ {
             root "{{ tinypilot_dir }}/app/static";
