@@ -2,7 +2,7 @@ name: Merge community changes into pro repo
 on:
   push:
     branches:
-      - master
+      - merge-pro
 jobs:
   updateFork:
     runs-on: ubuntu-latest
