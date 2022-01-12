@@ -12,7 +12,7 @@ curl -fsSL https://get.docker.com | sudo sh && \
 ## Building
 
 ```bash
-docker build -t janus_ustreamer .
+docker build -t janus-ustreamer .
 ```
 
 ## Running
@@ -24,8 +24,9 @@ Port `8002` is where janus is listening for websocket requests
 ```bash
 docker run \
   --privileged \
-  --network=host \
+  --network host \
   --publish 8001:8001 \
   --publish 8002:8002 \
-  janus_ustreamer:latest
+  --name janus-ustreamer \
+  janus-ustreamer:latest
 ```
