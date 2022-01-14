@@ -1,6 +1,7 @@
 FROM balenalib/raspberry-pi:buster
 
-RUN apt update && apt install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     libmicrohttpd-dev \
     libjansson-dev \
     libssl-dev \

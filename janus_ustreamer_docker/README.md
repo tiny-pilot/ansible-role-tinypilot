@@ -6,13 +6,19 @@
 
 ```bash
 curl -fsSL https://get.docker.com | sudo sh && \
-  dockerd-rootless-setuptool.sh install
+  sudo usermod -aG docker $(whoami)
 ```
+
+Log out and log in again for the docker permissions to take effect.
 
 ## Building
 
 ```bash
-docker build -t janus-ustreamer .
+pushd $(mktemp -d) && \
+  git clone https://github.com/tiny-pilot/ansible-role-tinypilot.git . \
+  git checkout experimental/h264 \
+  cd janus_ustreamer_docker \
+  docker build -t janus-ustreamer .
 ```
 
 ## Running
