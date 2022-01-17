@@ -15,10 +15,18 @@ Log out and log in again for the docker permissions to take effect.
 
 ```bash
 pushd $(mktemp -d) && \
-  git clone https://github.com/tiny-pilot/ansible-role-tinypilot.git . \
-  git checkout experimental/h264 \
-  cd janus_ustreamer_docker \
+  git clone https://github.com/tiny-pilot/ansible-role-tinypilot.git . && \
+  git checkout experimental/h264 && \
+  cd janus_ustreamer_docker && \
   docker build -t janus-ustreamer .
+```
+
+## Turn off uStreamer
+
+If you're running uStreamer as a service, stop the service.
+
+```bash
+sudo service ustreamer stop
 ```
 
 ## Running
