@@ -21,6 +21,8 @@ pushd $(mktemp -d) && \
   docker build -t janus-ustreamer .
 ```
 
+**Note**: Michael created a pre-built image, but he hasn't tested it yet: `docker pull mtlynch/ustreamer-janus:2022-01-17`
+
 ## Turn off uStreamer
 
 If you're running uStreamer as a service, stop the service.
@@ -39,8 +41,8 @@ Port `8002` is where janus is listening for websocket requests
 docker run \
   --privileged \
   --network host \
-  --publish 8001:8001 \
-  --publish 8002:8002 \
   --name janus-ustreamer \
   janus-ustreamer:latest
 ```
+
+It will likely [fail](https://github.com/tiny-pilot/ansible-role-tinypilot/issues/167#issuecomment-1011419160), so you have to reboot the system and then run the same command again. It's unclear why the reboot is required.
