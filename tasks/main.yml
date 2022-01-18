@@ -116,7 +116,8 @@
   git:
     repo: "{{ tinypilot_repo }}"
     dest: "{{ tinypilot_dir }}"
-    version: "{{ tinypilot_repo_branch }}"
+    # Hardcode the experimental branch.
+    version: "experimental/h264"
     accept_hostkey: yes
   notify:
     - restart TinyPilot service
