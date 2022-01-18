@@ -14,10 +14,10 @@
     nginx_upstreams:
       - name: tinypilot
         servers:
-          - "127.0.0.1:{{ tinypilot_port }} fail_timeout=1s max_fails=600"
+          - "{{ tinypilot_interface }}:{{ tinypilot_port }} fail_timeout=1s max_fails=600"
       - name: ustreamer
         servers:
-          - "127.0.0.1:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
+          - "{{ ustreamer_interface }}:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       - name: janus-ws
         servers:
           - "127.0.0.1:{{ janus_ws_port }} fail_timeout=1s max_fails=600"
