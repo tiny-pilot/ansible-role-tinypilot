@@ -16,7 +16,7 @@
     daemon_reload: yes
     enabled: no
     state: stopped
-  when: 'ustreamer' in services
+  when: "'ustreamer' in services"
 
 - name: install nginx
   import_tasks: nginx.yml
