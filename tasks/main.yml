@@ -7,12 +7,16 @@
 #  tags:
 #    - ustreamer
 
+- name: Populate service facts
+  ansible.builtin.service_facts:
+
 - name: disable uStreamer
   systemd:
     name: ustreamer
     daemon_reload: yes
     enabled: no
     state: stopped
+  when: 'ustreamer' in services
 
 - name: install nginx
   import_tasks: nginx.yml
