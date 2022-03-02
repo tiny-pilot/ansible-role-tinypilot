@@ -21,26 +21,23 @@ pushd $(mktemp -d) && \
   docker build -t janus-ustreamer .
 ```
 
-**Note**: Michael created a pre-built image, but he hasn't tested it yet: `docker pull mtlynch/ustreamer-janus:2022-01-17`
-
-## Turn off uStreamer
-
-If you're running uStreamer as a service, stop the service.
+**Note**: You can also make use of the pre-built Docker image by running the following command:
 
 ```bash
-sudo service ustreamer stop
+docker pull jdeanwallace/janus-ustreamer:2022-02-25
 ```
 
 ## Running
 
-Port `8001` is where ustreamer is listening for mjpeg stream requests (nice to have as a fallback)
+uStreamer should aleady be running on the device and listening on port `8001` for mjpeg stream requests, as a fallback.
 
-Port `8002` is where janus is listening for websocket requests
+To get Janus running and listening on port `8002` for websocket requests, run the following command:
 
 ```bash
 docker run \
   --privileged \
   --network host \
+  --volume /dev/shm:/dev/shm \
   --name janus-ustreamer \
   janus-ustreamer:latest
 ```
