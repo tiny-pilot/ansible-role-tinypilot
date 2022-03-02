@@ -1,3 +1,4 @@
 ---
 - src: https://github.com/tiny-pilot/ansible-role-ustreamer
+  version: h264-sink-parameters
 - src: https://github.com/tiny-pilot/ansible-role-nginx
