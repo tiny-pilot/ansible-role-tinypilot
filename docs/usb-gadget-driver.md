@@ -6,6 +6,7 @@ See also the Linux kernel documentation:
 
 - [General `configfs` overview](https://www.kernel.org/doc/Documentation/filesystems/configfs/configfs.txt)
 - [USB gadget driver](https://www.kernel.org/doc/Documentation/usb/gadget_configfs.txt)
+- [Reference of available parameters and possible values](https://www.kernel.org/doc/Documentation/ABI/testing/)
 
 ## Introduction
 
