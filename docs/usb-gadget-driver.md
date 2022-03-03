@@ -36,7 +36,7 @@ The `configfs` files and folders must be in line with a specific, predefined str
       - `hid.keyboard/`: USB keyboard config
       - `mass_storage.0`: USB mass storage config
     - `configs/`: This folder contains the complete and authoritative configurations for the USB gadget. There could be multiple ones, but we only use one right now, which is identified by `c.1`.
-      - `c.1/`:
+      - `c.1/`: Among others:
         - `strings/`: Device info, like the serial number or the manufacturer name.
         - `hid.mouse/`: Example of a symlink to the `functions/hid.mouse` folder. It only allows a symlink here, you can’t create the configuration in place.
 
@@ -51,6 +51,6 @@ The `configfs` virtual file system does **not** behave like a regular disk file 
 - When creating a new `functions/` sub-folder, the kernel automatically and immediately sets up a content structure of files and sub-folders. As mentioned above, that structure is fixed and can’t be changed.
 - Folders can only be deleted via `rmdir`, not via `rm -rf`. That’s even true if the folder isn’t empty, in which case `rmdir` would usually fail.
 - `functions/` folders can only be deleted when they are **not** referenced by a symlink from the `configs/c.1/` folder, otherwise the deletion attempt fails.
-- Symlinks have special meaning, and creating or deleting them might have side-effects. Also, `configfs` nodes cannot be symlinked from outside the virtual file system.
+- Symlinks have special meaning, and creating or deleting them might have side-effects. Also, `configfs` items cannot be symlinked from outside the virtual file system.
 - Some operations can only be carried out while the gadget is deactivated, or they only take effect after re-activating the gadget.
 - Configuration changes that are made while the gadget is active might silently fail, i.e. they could leave the entire gadget in an inconsistent or broken state, despite the command itself returning exit code `0`. Therefore, it’s important to be mindful of potential failure cases.
