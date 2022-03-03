@@ -127,16 +127,14 @@ echo -ne \\xC0           # END_COLLECTION
 } >> "$D"
 cp "$D" "${USB_MOUSE_FUNCTIONS_DIR}/report_desc"
 
-CONFIG_INDEX=1
-CONFIG_INDEX_DIR="${USB_CONFIGS_DIR}/c.${CONFIG_INDEX}"
-mkdir -p "$CONFIG_INDEX_DIR"
-echo 250 > "${CONFIG_INDEX_DIR}/MaxPower"
+mkdir -p "${USB_CONFIG_DIR}"
+echo 250 > "${USB_CONFIG_DIR}/MaxPower"
 
-CONFIGS_STRINGS_DIR="${CONFIG_INDEX_DIR}/${USB_STRINGS_DIR}"
-mkdir -p "$CONFIGS_STRINGS_DIR"
-echo "Config ${CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configuration"
+CONFIGS_STRINGS_DIR="${USB_CONFIG_DIR}/${USB_STRINGS_DIR}"
+mkdir -p "${CONFIGS_STRINGS_DIR}"
+echo "Config ${USB_CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configuration"
 
-ln -s "$USB_KEYBOARD_FUNCTIONS_DIR" "${CONFIG_INDEX_DIR}/"
-ln -s "$USB_MOUSE_FUNCTIONS_DIR" "${CONFIG_INDEX_DIR}/"
+ln -s "${USB_KEYBOARD_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
+ln -s "${USB_MOUSE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 
 usb_gadget_activate
