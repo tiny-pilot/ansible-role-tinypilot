@@ -18,13 +18,13 @@ pushd $(mktemp -d) && \
   git clone https://github.com/tiny-pilot/ansible-role-tinypilot.git . && \
   git checkout experimental/h264 && \
   cd janus_ustreamer_docker && \
-  docker build -t janus-ustreamer .
+  docker build -t janus .
 ```
 
 **Note**: You can also make use of the pre-built Docker image by running the following command:
 
 ```bash
-docker pull jdeanwallace/janus-ustreamer:2022-02-25
+docker pull tinypilotkvm/janus:2022-03-07
 ```
 
 ## Running
@@ -38,8 +38,8 @@ docker run \
   --privileged \
   --network host \
   --volume /dev/shm:/dev/shm \
-  --name janus-ustreamer \
-  janus-ustreamer:latest
+  --name janus \
+  janus:latest
 ```
 
 It will likely [fail](https://github.com/tiny-pilot/ansible-role-tinypilot/issues/167#issuecomment-1011419160), so you have to reboot the system and then run the same command again. It's unclear why the reboot is required.
