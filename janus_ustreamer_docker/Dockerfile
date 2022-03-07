@@ -74,6 +74,5 @@ RUN git clone --depth=1 https://github.com/pikvm/ustreamer && \
 
 COPY janus.plugin.ustreamer.jcfg /opt/janus/lib/janus/configs/janus.plugin.ustreamer.jcfg
 COPY janus.transport.websockets.jcfg /opt/janus/lib/janus/configs/janus.transport.websockets.jcfg
-COPY start.sh /start.sh
 
-ENTRYPOINT ["bash", "./start.sh"]
+ENTRYPOINT ["/opt/janus/bin/janus", "-F", "/opt/janus/lib/janus/configs/", "-P", "/opt/janus/lib/janus/plugins/"]
