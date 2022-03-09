@@ -41,6 +41,10 @@ ansible-galaxy install git+https://github.com/tiny-pilot/ansible-role-tinypilot.
 ansible-playbook example.yml
 ```
 
+## Documentation
+
+- [Introduction to the USB gadget driver](docs/usb-gadget-driver.md)
+
 ## License
 
 MIT
