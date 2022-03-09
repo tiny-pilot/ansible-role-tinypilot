@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Shared parameters and functionality for the usb gadget.
+# See: docs/usb-gadget-driver.md
+
 export readonly USB_DEVICE_DIR="g1"
 export readonly USB_GADGET_PATH="/sys/kernel/config/usb_gadget"
 export readonly USB_DEVICE_PATH="${USB_GADGET_PATH}/${USB_DEVICE_DIR}"
