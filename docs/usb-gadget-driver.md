@@ -45,7 +45,7 @@ The `configfs` files and folders must be in line with a specific, predefined str
 The `configfs` virtual file system does **not** behave like a regular disk file system in many ways. Some examples:
 
 - You cannot create arbitrary files or folders, or rename them, but you can only create items at predefined places with predefined names.
-- When writing parameters into files, it might require the values to be in a certain format. (I.e., the parameters are essentially validated at write-time.)
+- When writing parameters into files, it might require the values to be in a certain format (i.e., the parameters are essentially validated at write-time).
 - Changes are effectuated immediately and synchronously, just as if you had made calls to the respective system API directly, e.g. via C functions. Unlike with other file-based configurations, you don’t have to restart any service or such.
 - Sometimes, operations must be carried out in a specific order that depends on internal logic rather than on conventional file system rules. E.g., when writing parameters into existing files, it might only work if that’s done in a specific order.
 - When creating a new `functions/` sub-folder, the kernel automatically and immediately sets up a content structure of files and sub-folders. As mentioned above, that structure is fixed and can’t be changed.
