@@ -12,7 +12,7 @@ See also the Linux kernel documentation:
 
 `configfs` is a virtual file system provided by the Linux kernel. It is mounted underneath `/sys/kernel/config/`. The file system does not map to a persistent disk, though, but the entire structure is held in memory.
 
-The basic idea behind `configfs` is to interact with kernel functionality via file system APIs. So the file and directory entries in `configfs` are like a facade that’s directly wrapped around regular operating system APIs. Making changes to`configfs` files or folders is equivalent to making function calls (to system APIs), rather than merely persisting values on disk.
+The basic idea behind `configfs` is to interact with kernel functionality via file system APIs. So the file and directory entries in `configfs` are like a facade that’s directly wrapped around regular operating system APIs. Making changes to `configfs` files or folders is equivalent to making function calls (to system APIs), rather than merely persisting values on disk.
 
 Examples for possible operations:
 
