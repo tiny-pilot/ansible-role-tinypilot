@@ -12,9 +12,8 @@ print_help() {
     cat << EOF
 Usage: ${0##*/} [-hq]
 Update uStreamer video settings.
-
-    -h Display this help and exit.
-    -q Run in quiet mode.
+  -h Display this help and exit.
+  -q Run in quiet mode.
 EOF
 }
 

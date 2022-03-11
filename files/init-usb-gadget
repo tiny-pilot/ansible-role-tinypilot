@@ -15,6 +15,27 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 # shellcheck source=lib/usb-gadget.sh
 source "${SCRIPT_DIR}/lib/usb-gadget.sh"
 
+print_help() {
+  cat << EOF
+Usage: ${0##*/} [-h]
+Init USB gadget.
+  -h Display this help and exit.
+EOF
+}
+
+# Parse command-line arguments.
+while getopts "h" opt; do
+  case "${opt}" in
+    h)
+      print_help
+      exit
+      ;;
+    *)
+      print_help >&2
+      exit 1
+  esac
+done
+
 modprobe libcomposite
 
 # Adapted from https://github.com/girst/hardpass-sendHID/blob/master/README.md
