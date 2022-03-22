@@ -1,3 +1,0 @@
-memsink: {
-	object = "tinypilot::ustreamer::h264"
-}
