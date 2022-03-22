@@ -1,4 +1,10 @@
 ---
+- name: install Janus Gateway
+  import_tasks: janus.yml
+  tags:
+    - janus
+  when: tinypilot_install_janus
+
 - name: install uStreamer
   import_tasks: ustreamer.yml
   tags:

@@ -20,3 +20,9 @@
   service:
     name: usb-gadget
     state: started
+
+- name: restart janus service
+  systemd:
+    name: janus
+    daemon_reload: yes
+    state: restarted

@@ -3,6 +3,7 @@
 # relies on the tinypilot user being named "tinypilot" so changing this value
 # will break updates.
 tinypilot_user: tinypilot
+tinypilot_install_janus: yes
 
 # uStreamer variables are placed here, instead of in `defaults/main.yml`,
 # in order to elevate their variable precedence. These variables will now
@@ -14,6 +15,7 @@ ustreamer_repo_version: v4.13
 ustreamer_h264_sink: tinypilot::ustreamer::h264
 ustreamer_h264_sink_mode: 777
 ustreamer_h264_sink_rm: yes
+ustreamer_compile_janus_plugin: yes
 
 # janus variables
-janus_ws_port: 8002
+janus_ws_port: 8188

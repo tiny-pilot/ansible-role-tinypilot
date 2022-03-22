@@ -2,3 +2,12 @@
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
+
+- name: install Janus plugin
+  copy:
+    remote_src: yes
+    src: "{{ ustreamer_dir }}/janus/libjanus_ustreamer.so"
+    dest: "{{ janus_install_dir }}/lib/janus/plugins/"
+  notify:
+    - restart janus service
+  when: ustreamer_compile_janus_plugin
