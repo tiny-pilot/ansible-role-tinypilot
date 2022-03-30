@@ -1,7 +1,7 @@
 ---
 # We're unable to build the uStreamer Janus plugin because an include statement
 # references the wrong file path.
-# TODO: Create a PR to patch this bug in the janus-gateway repo.
+# Issue: https://github.com/tiny-pilot/ansible-role-tinypilot/issues/192
 - name: patch Janus plugin.h file to successfully include refcount.h file
   command: sed -i -e 's|^#include "refcount.h"$|#include "../refcount.h"|g' "{{ janus_install_dir }}/include/janus/plugins/plugin.h"
   when: tinypilot_install_janus and ustreamer_compile_janus_plugin
