@@ -1,0 +1,4 @@
+---
+- name: import Janus Gateway role
+  import_role:
+    name: ansible-role-janus-gateway

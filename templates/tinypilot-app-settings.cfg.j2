@@ -3,3 +3,7 @@
 
 KEYBOARD_PATH = '{{ tinypilot_keyboard_interface }}'
 MOUSE_PATH = '{{ tinypilot_mouse_interface }}'
+{% if (tinypilot_install_janus and ustreamer_compile_janus_plugin and
+           ustreamer_h264_sink != None) -%}
+USE_WEBRTC_REMOTE_SCREEN = True
+{% endif -%}

@@ -18,6 +18,9 @@
       - name: ustreamer
         servers:
           - "{{ ustreamer_interface }}:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
+      - name: janus-ws
+        servers:
+          - "{{ janus_ws_interface }}:{{ janus_ws_port }} fail_timeout=1s max_fails=600"
     nginx_vhosts:
       - listen: "{{ tinypilot_external_port }} default_server"
         server_name: "tinypilot"
@@ -53,6 +56,17 @@
           }
           location /snapshot {
             proxy_pass http://ustreamer;
+          }
+          location /janus/ws {
+            proxy_pass http://janus-ws;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Scheme $scheme;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Port $server_port;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           }
           location / {
             proxy_pass http://tinypilot;
