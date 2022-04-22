@@ -22,7 +22,7 @@ EOF
 #   Writes a formatted string to stdout.
 #######################################
 print_info() {
-  if [ "$FLAG_SILENT_MODE" != "true" ]; then
+  if [[ "$FLAG_SILENT_MODE" != "true" ]]; then
     echo "$@"
   fi
 }
@@ -45,6 +45,13 @@ while getopts "hq" opt; do
         # Add more options in the future.
     esac
 done
+
+if [[ "${EUID}" -ne 0 ]]; then
+  echo "This script requires root privileges." >&2
+  echo "Please re-run with sudo:" >&2
+  echo "  sudo ${0}" >&2
+  exit 1
+fi
 
 LOG_FILE=$(mktemp)
 print_info "Writing diagnostic logs to $LOG_FILE"
@@ -83,7 +90,7 @@ printf "%s\n\n" "$(vcgencmd get_throttled)" >> "${LOG_FILE}"
 print_info "Checking for voltage issues..."
 {
   echo "voltage logs"
-  sudo journalctl -xe | grep -i "voltage"
+  journalctl -xe | grep -i "voltage"
   printf "\n"
 } >> "${LOG_FILE}"
 
@@ -97,7 +104,7 @@ print_info "Checking TinyPilot configuration..."
 print_info "Checking TinyPilot logs..."
 {
   printf "TinyPilot logs\n"
-  sudo journalctl -u tinypilot | tail -n 200
+  journalctl -u tinypilot | tail -n 200
   printf "\n"
 } >> "${LOG_FILE}"
 
@@ -118,18 +125,18 @@ print_info "Checking uStreamer configuration..."
 print_info "Checking uStreamer logs..."
 {
   printf "uStreamer logs\n"
-  sudo journalctl -u ustreamer | tail -n 80
+  journalctl -u ustreamer | tail -n 80
   printf "\n"
 } >> "${LOG_FILE}"
 
 print_info "Checking nginx logs..."
 {
   echo "nginx logs"
-  sudo journalctl -u nginx
+  journalctl -u nginx
   printf "\n\n"
-  sudo tail -n 100 /var/log/nginx/error.log
+  tail -n 100 /var/log/nginx/error.log
   printf "\n\n"
-  sudo tail -n 30 /var/log/nginx/access.log
+  tail -n 30 /var/log/nginx/access.log
   printf "\n"
 } >> "${LOG_FILE}"
 
@@ -141,7 +148,7 @@ print_info ""
 print_info ""
 
 SHOULD_UPLOAD=false
-if [ "$FLAG_SILENT_MODE" != "true" ]; then
+if [[ "$FLAG_SILENT_MODE" != "true" ]]; then
     echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
     read -r answer
     printf "\n"
@@ -152,7 +159,7 @@ fi
 
 readonly LOG_UPLOAD_URL="https://logs.tinypilotkvm.com"
 
-if [ "$SHOULD_UPLOAD" == "true" ]; then
+if [[ "$SHOULD_UPLOAD" == "true" ]]; then
     URL=$(curl --silent --show-error --form "_=@${LOG_FILE}" "${LOG_UPLOAD_URL}")
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "%s\n\n" "${URL}"
