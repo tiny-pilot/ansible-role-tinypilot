@@ -22,7 +22,7 @@ EOF
 #   Writes a formatted string to stdout.
 #######################################
 print_info() {
-  if [ "$FLAG_SILENT_MODE" != "true" ]; then
+  if [[ "$FLAG_SILENT_MODE" != "true" ]]; then
     echo "$@"
   fi
 }
@@ -148,7 +148,7 @@ print_info ""
 print_info ""
 
 SHOULD_UPLOAD=false
-if [ "$FLAG_SILENT_MODE" != "true" ]; then
+if [[ "$FLAG_SILENT_MODE" != "true" ]]; then
     echo -n "Upload your log file? You can review it above to see what information it contains (y/n)? "
     read -r answer
     printf "\n"
@@ -159,7 +159,7 @@ fi
 
 readonly LOG_UPLOAD_URL="https://logs.tinypilotkvm.com"
 
-if [ "$SHOULD_UPLOAD" == "true" ]; then
+if [[ "$SHOULD_UPLOAD" == "true" ]]; then
     URL=$(curl --silent --show-error --form "_=@${LOG_FILE}" "${LOG_UPLOAD_URL}")
     printf "Copy the following URL into your bug report:\n\n\t"
     printf "%s\n\n" "${URL}"
