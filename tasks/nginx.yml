@@ -20,7 +20,7 @@
           - "{{ ustreamer_interface }}:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       - name: janus-ws
         servers:
-          - "{{ janus_ws_interface }}:{{ janus_ws_port }} fail_timeout=1s max_fails=600"
+          - "{{ janus_ws_ip }}:{{ janus_ws_port }} fail_timeout=1s max_fails=600"
     nginx_vhosts:
       - listen: "{{ tinypilot_external_port }} default_server"
         server_name: "tinypilot"
