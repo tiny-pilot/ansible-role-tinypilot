@@ -13,8 +13,5 @@ ustreamer_repo: https://github.com/tiny-pilot/ustreamer.git
 ustreamer_repo_version: v4.13
 
 janus_version: v1.0.0
-
-# These variables are only used within this role and don't affect the Janus
-# role.
-janus_ws_interface: '127.0.0.1'
-janus_ws_port: 8188
+janus_ws_ip: '127.0.0.1'
+janus_ws_port: 8002
