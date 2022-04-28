@@ -108,6 +108,11 @@
     owner: root
     group: root
     recurse: yes
+  tags:
+    # This fails the idempotency test because it is run on every provision to
+    # allow git to sync.
+    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
+    - molecule-idempotence-notest
 
 - name: get TinyPilot repo
   git:
@@ -154,7 +159,6 @@
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
     recurse: yes
-  # TODO: Figure out why this fails idempotency otherwise.
   tags:
     - molecule-idempotence-notest
 
