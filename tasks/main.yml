@@ -109,8 +109,8 @@
     group: root
     recurse: yes
   tags:
-    # This fails the idempotency test because it is run on every provision to
-    # allow git to sync.
+    # This fails the idempotency test because it must run on every provision
+    # to set the correct directory ownership that allows git to sync.
     # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
     - molecule-idempotence-notest
 
