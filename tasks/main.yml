@@ -105,8 +105,9 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ tinypilot_user }}"
-    group: "{{ tinypilot_group }}"
+    owner: root
+    group: root
+    recurse: yes
 
 - name: get TinyPilot repo
   git:
