@@ -105,8 +105,8 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    owner: root
-    group: root
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     recurse: yes
   tags:
     # This fails the idempotency test because it must run on every provision
@@ -115,6 +115,9 @@
     - molecule-idempotence-notest
 
 - name: get TinyPilot repo
+  # Don't escalate privileges because only the directory owner can use git.
+  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
+  become: no
   git:
     repo: "{{ tinypilot_repo }}"
     dest: "{{ tinypilot_dir }}"
