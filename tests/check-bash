@@ -10,14 +10,16 @@ set -u
 
 BASH_SCRIPTS=()
 
-while read -r line; do
-  BASH_SCRIPTS+=("${line}")
-done < <(find . \
-  -not -path './\.*' \
-  -not -path './venv/*' \
-  -not -path './node_modules/*' \
-  -type f \
-  -exec bash -c 'head -n 1 $1 | grep --quiet "#!/bin/bash"' _ {} \; \
-  -print)
+while read -r filepath; do
+  if head -n 1 "${filepath}" | grep --quiet \
+    --regexp "#!/bin/bash" \
+    --regexp "#!/usr/bin/env bash" \
+    --regexp "#!/usr/sh" \
+    --regexp "#!/usr/bin/env sh" \
+    ; then BASH_SCRIPTS+=("${filepath}")
+  fi
+done < <(git ls-files)
+
+readonly BASH_SCRIPTS
 
 shellcheck "${BASH_SCRIPTS[@]}"
