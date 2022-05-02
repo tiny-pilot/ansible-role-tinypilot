@@ -105,10 +105,19 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ tinypilot_user }}"
-    group: "{{ tinypilot_group }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+  tags:
+    # This fails the idempotency test because it must run on every provision
+    # to set the correct directory ownership that allows git to sync.
+    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
+    - molecule-idempotence-notest
 
 - name: get TinyPilot repo
+  # Don't escalate privileges because only the directory owner can use git.
+  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
+  become: no
   git:
     repo: "{{ tinypilot_repo }}"
     dest: "{{ tinypilot_dir }}"
@@ -153,7 +162,6 @@
     owner: "{{ tinypilot_user }}"
     group: "{{ tinypilot_group }}"
     recurse: yes
-  # TODO: Figure out why this fails idempotency otherwise.
   tags:
     - molecule-idempotence-notest
 
