@@ -1,4 +1,4 @@
 ---
-- name: import Janus Gateway role
-  import_role:
-    name: ansible-role-janus-gateway
+- name: install Janus Debian package
+  apt:
+    deb: "{{ janus_deb_file }}"
