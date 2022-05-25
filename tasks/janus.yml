@@ -2,7 +2,3 @@
 - name: install Janus Debian package
   apt:
     deb: "{{ janus_deb_file }}"
-    # We need to force the installation of Janus when the target device has
-    # conflicting dependencies. This does not install Janus on every provision.
-    # https://github.com/tiny-pilot/janus-debian/blob/1.0.1/Dockerfile#L172
-    force: yes
