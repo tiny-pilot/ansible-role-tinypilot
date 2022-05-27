@@ -102,27 +102,12 @@
     validate: sudo /usr/sbin/visudo -cf %s
 
 - name: create TinyPilot folder
-  file:
-    path: "{{ tinypilot_dir }}"
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    recurse: yes
+  command: "{{ item }}"
+  with_items:
+    - "rm -rf {{ tinypilot_dir }}"
+    - "cp -R tinypilot {{ tinypilot_dir }}"
   tags:
-    # This fails the idempotency test because it must run on every provision
-    # to set the correct directory ownership that allows git to sync.
-    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
     - molecule-idempotence-notest
-
-- name: get TinyPilot repo
-  # Don't escalate privileges because only the directory owner can use git.
-  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-  become: no
-  git:
-    repo: "{{ tinypilot_repo }}"
-    dest: "{{ tinypilot_dir }}"
-    version: "{{ tinypilot_repo_branch }}"
-    accept_hostkey: yes
   notify:
     - restart TinyPilot service
 
