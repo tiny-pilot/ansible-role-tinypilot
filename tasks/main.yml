@@ -55,6 +55,7 @@
   apt:
     name: "{{ tinypilot_packages }}"
     state: present
+  when: tinypilot_debian_package_path is null
 
 - name: create tinypilot group
   group:
