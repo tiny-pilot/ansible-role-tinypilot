@@ -2,6 +2,9 @@
 tinypilot_group: tinypilot
 tinypilot_dir: /opt/tinypilot
 tinypilot_privileged_dir: /opt/tinypilot-privileged
+# Specifies the path to a Debian package that installs TinyPilot. If unset, the
+# role installs TinyPilot from source using the tinypilot_repo variable instead.
+tinypilot_debian_package_path: null
 tinypilot_repo: https://github.com/tiny-pilot/tinypilot.git
 tinypilot_repo_branch: master
 # Port on which TinyPilot frontend listens (accessible from other hosts on the

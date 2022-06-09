@@ -101,6 +101,11 @@
     regexp: "^{{ tinypilot_user }}"
     validate: sudo /usr/sbin/visudo -cf %s
 
+- name: install TinyPilot Debian package
+  apt:
+    deb: "{{ tinypilot_debian_package_path }}"
+  when: tinypilot_debian_package_path is not null
+
 - name: create TinyPilot folder
   file:
     path: "{{ tinypilot_dir }}"
@@ -108,6 +113,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     recurse: yes
+  when: tinypilot_debian_package_path is null
   tags:
     # This fails the idempotency test because it must run on every provision
     # to set the correct directory ownership that allows git to sync.
@@ -123,6 +129,7 @@
     dest: "{{ tinypilot_dir }}"
     version: "{{ tinypilot_repo_branch }}"
     accept_hostkey: yes
+  when: tinypilot_debian_package_path is null
   notify:
     - restart TinyPilot service
 
