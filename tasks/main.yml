@@ -55,7 +55,7 @@
   apt:
     name: "{{ tinypilot_packages }}"
     state: present
-  when: tinypilot_debian_package_path is none
+  when: tinypilot_debian_package_path == None
 
 - name: create tinypilot group
   group:
@@ -105,7 +105,7 @@
 - name: install TinyPilot Debian package
   apt:
     deb: "{{ tinypilot_debian_package_path }}"
-  when: tinypilot_debian_package_path is not none
+  when: tinypilot_debian_package_path != None
 
 - name: create TinyPilot folder
   file:
@@ -114,7 +114,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     recurse: yes
-  when: tinypilot_debian_package_path is none
+  when: tinypilot_debian_package_path == None
   tags:
     # This fails the idempotency test because it must run on every provision
     # to set the correct directory ownership that allows git to sync.
@@ -130,7 +130,7 @@
     dest: "{{ tinypilot_dir }}"
     version: "{{ tinypilot_repo_branch }}"
     accept_hostkey: yes
-  when: tinypilot_debian_package_path is none
+  when: tinypilot_debian_package_path == None
   notify:
     - restart TinyPilot service
 
