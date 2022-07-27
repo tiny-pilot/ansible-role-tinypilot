@@ -19,7 +19,7 @@ tinypilot_keyboard_interface: /dev/hidg0
 tinypilot_mouse_interface: /dev/hidg1
 tinypilot_enable_debug_logging: no
 tinypilot_pip_args: ""
-tinypilot_app_settings_file: "{{ tinypilot_dir }}/app_settings.cfg"
+tinypilot_app_settings_file: "/home/{{ tinypilot_user }}/app_settings.cfg"
 # (Experimental): Install the Janus WebRTC server to enable uStreamer to stream
 # video over H264 instead of MJPEG.
 tinypilot_install_janus: no
