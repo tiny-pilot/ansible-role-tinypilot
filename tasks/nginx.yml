@@ -11,6 +11,27 @@
   import_role:
     name: ansible-role-nginx
   vars:
+    nginx_extra_http_options: |
+      # If we receive X-Forwarded-Proto, pass it through; otherwise, pass along the
+      # scheme used to connect to this server
+      map $http_x_forwarded_proto $proxy_x_forwarded_proto {
+        default $http_x_forwarded_proto;
+        ''      $scheme;
+      }
+      
+      # If we receive X-Forwarded-Port, pass it through; otherwise, pass along the
+      # server port the client connected to
+      map $http_x_forwarded_port $proxy_x_forwarded_port {
+        default $http_x_forwarded_port;
+        ''      $server_port;
+      }
+      
+      # If we receive Upgrade, set Connection to "upgrade"; otherwise, delete any
+      # Connection header that may have been passed to this server
+      map $http_upgrade $proxy_connection {
+        default upgrade;
+        '' close;
+      }
     nginx_upstreams:
       - name: tinypilot
         servers:
@@ -29,22 +50,15 @@
         extra_parameters: |
           proxy_buffers 16 16k;
           proxy_buffer_size 16k;
-          proxy_set_header Host $host;
+          proxy_set_header Host $http_host;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $proxy_connection;
+          proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $proxy_x_forwarded_proto;
+          proxy_set_header X-Forwarded-Port $proxy_x_forwarded_port;
           proxy_http_version 1.1;
 
-          location /socket.io {
-            proxy_pass http://tinypilot;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            # Since this is a connection upgrade, we don't inherit the settings from
-            # above. We need these so that nginx forwards requests properly to
-            # Flask-SocketIO.
-            # See: https://github.com/miguelgrinberg/Flask-SocketIO/issues/1501#issuecomment-802082048
-            proxy_set_header Host $http_host;
-            proxy_set_header X-Forwarded-Host $http_host;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          }
           location /state {
             proxy_pass http://ustreamer;
           }
@@ -59,14 +73,6 @@
           }
           location /janus/ws {
             proxy_pass http://janus-ws;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            proxy_set_header Host $http_host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Scheme $scheme;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Forwarded-Port $server_port;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           }
           location / {
             proxy_pass http://tinypilot;
