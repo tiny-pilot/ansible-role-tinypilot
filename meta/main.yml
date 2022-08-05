@@ -1,4 +1,8 @@
 ---
+dependencies:
+  - role: ansible-role-ustreamer
+  - role: ansible-role-nginx
+
 galaxy_info:
   role_name: tinypilot
   author: Michael Lynch
