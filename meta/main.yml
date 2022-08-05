@@ -1,7 +1,7 @@
 ---
 dependencies:
-  - role: ansible-role-ustreamer
-  - role: ansible-role-nginx
+  - src: https://github.com/tiny-pilot/ansible-role-ustreamer
+  - src: https://github.com/tiny-pilot/ansible-role-nginx
 
 galaxy_info:
   role_name: tinypilot
