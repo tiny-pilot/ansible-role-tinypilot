@@ -9,7 +9,7 @@ galaxy_info:
   description: Use your Raspberry Pi as a virtual keyboard
   license: MIT
 
-  min_ansible_version: 2.8
+  min_ansible_version: 2.10
 
   platforms:
     - name: Debian
