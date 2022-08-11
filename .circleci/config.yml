@@ -45,7 +45,7 @@ jobs:
             pip install -r molecule/requirements.txt && \
             ansible --version && \
             molecule --version && \
-            ansible-galaxy install --role-file requirements.yml && \
+            ansible-galaxy install --role-file meta/requirements.yml && \
             molecule test
 workflows:
   version: 2
