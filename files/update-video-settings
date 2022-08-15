@@ -72,6 +72,5 @@ echo "- hosts: localhost
 ansible-playbook \
   "${PLAYBOOK}" \
   --inventory localhost, \
-  --user "${USER}" \
   --extra-vars "${EXTRA_VARS_PATH}" \
   --tags "systemd-config"
