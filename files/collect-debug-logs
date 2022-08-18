@@ -66,14 +66,14 @@ print_info "Writing diagnostic logs to $LOG_FILE"
 echo "Software versions" >> "${LOG_FILE}"
 
 print_info "Checking TinyPilot version..."
-pushd /opt/tinypilot > /dev/null
+pushd /opt/tinypilot > /dev/null || exit
 if [[ -f VERSION ]]; then
   TINYPILOT_VERSION="$(cat VERSION)"
 else
   TINYPILOT_VERSION="$(git describe --tags --always) $(git rev-parse --short HEAD)"
 fi
 readonly TINYPILOT_VERSION
-popd > /dev/null
+popd > /dev/null || exit
 printf 'TinyPilot version: %s\n' "${TINYPILOT_VERSION}" >> "${LOG_FILE}"
 
 print_info "Checking uStreamer version..."
