@@ -1,7 +1,7 @@
 ---
-# TinyPilot's quick-install script (which it uses for installation and updates)
-# relies on the tinypilot user being named "tinypilot" so changing this value
-# will break updates.
+# TinyPilot's get-tinypilot.sh script (which it uses for installation and
+# updates) relies on the tinypilot user being named "tinypilot" so changing this
+# value will break updates.
 tinypilot_user: tinypilot
 
 # uStreamer variables are placed here, instead of in `defaults/main.yml`,

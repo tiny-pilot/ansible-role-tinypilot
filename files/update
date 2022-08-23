@@ -12,5 +12,5 @@ set -e
 curl \
   --silent \
   --show-error \
-  https://raw.githubusercontent.com/tiny-pilot/tinypilot/master/quick-install | \
+  https://raw.githubusercontent.com/tiny-pilot/tinypilot/master/get-tinypilot.sh | \
     bash -
