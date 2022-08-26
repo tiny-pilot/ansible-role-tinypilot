@@ -31,32 +31,6 @@
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
 
-- name: collect TinyPilot required apt packages on all systems
-  set_fact:
-    tinypilot_packages:
-      - git
-      - python3-venv
-      - sudo
-    can_install_pip3: >-
-      {{ (ansible_distribution == 'Debian' and ansible_distribution_version is version('11', '>='))
-         or (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('20.04', '>=')) }}
-
-- name: add pip to required apt packages
-  set_fact:
-    tinypilot_packages: "{{ tinypilot_packages }} + ['python-pip']"
-  when: not can_install_pip3
-
-- name: add pip3 to required apt packages
-  set_fact:
-    tinypilot_packages: "{{ tinypilot_packages }} + ['python3-pip']"
-  when: can_install_pip3
-
-- name: install TinyPilot pre-requisite packages
-  apt:
-    name: "{{ tinypilot_packages }}"
-    state: present
-  when: tinypilot_debian_package_path == None
-
 - name: create tinypilot group
   group:
     name: "{{ tinypilot_group }}"
@@ -105,34 +79,6 @@
 - name: install TinyPilot Debian package
   apt:
     deb: "{{ tinypilot_debian_package_path }}"
-  when: tinypilot_debian_package_path != None
-
-- name: create TinyPilot folder
-  file:
-    path: "{{ tinypilot_dir }}"
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    recurse: yes
-  when: tinypilot_debian_package_path == None
-  tags:
-    # This fails the idempotency test because it must run on every provision
-    # to set the correct directory ownership that allows git to sync.
-    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-    - molecule-idempotence-notest
-
-- name: get TinyPilot repo
-  # Don't escalate privileges because only the directory owner can use git.
-  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-  become: no
-  git:
-    repo: "{{ tinypilot_repo }}"
-    dest: "{{ tinypilot_dir }}"
-    version: "{{ tinypilot_repo_branch }}"
-    accept_hostkey: yes
-  when: tinypilot_debian_package_path == None
-  notify:
-    - restart TinyPilot service
 
 - name: find absolute path to python3
   shell: realpath $(which python3)
