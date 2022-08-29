@@ -12,17 +12,11 @@ Available variables are listed below, along with default values (see [defaults/m
 ```yaml
 tinypilot_group: tinypilot
 tinypilot_dir: /opt/tinypilot
+tinypilot_repo: https://github.com/tiny-pilot/tinypilot.git
+tinypilot_repo_branch: master
 tinypilot_interface: '127.0.0.1'
 tinypilot_port: 8000
 tinypilot_keyboard_interface: /dev/hidg0
-```
-
-Mandatory variables are listed below:
-
-```yaml
-# Specify the filesystem path or URL of a Debian package that installs
-# TinyPilot.
-tinypilot_debian_package_path: tinypilot-00000000000000-1-armhf.deb
 ```
 
 ## Dependencies
@@ -43,11 +37,8 @@ tinypilot_debian_package_path: tinypilot-00000000000000-1-armhf.deb
 ### Running Example Playbook
 
 ```bash
-TINYPILOT_DEBIAN_PACKAGE='tinypilot-00000000000000-1-armhf.deb'
-
 ansible-galaxy install git+https://github.com/tiny-pilot/ansible-role-tinypilot.git
-ansible-playbook example.yml \
-  --extra-vars "tinypilot_debian_package_path=${TINYPILOT_DEBIAN_PACKAGE}"
+ansible-playbook example.yml
 ```
 
 ## Documentation
