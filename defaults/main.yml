@@ -6,6 +6,9 @@ tinypilot_privileged_dir: /opt/tinypilot-privileged
 # TinyPilot. If unset, the role installs TinyPilot from source using the
 # tinypilot_repo variable instead.
 tinypilot_debian_package_path: null
+# Installing TinyPilot via git has been DEPRECATED, in favor of the TinyPilot
+# Debian package. Set the tinypilot_debian_package_path variable instead.
+# https://github.com/tiny-pilot/ansible-role-tinypilot/issues/218
 tinypilot_repo: https://github.com/tiny-pilot/tinypilot.git
 tinypilot_repo_branch: master
 # Port on which TinyPilot frontend listens (accessible from other hosts on the
