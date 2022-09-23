@@ -1,4 +1,8 @@
 ---
+- name: check if OS is Raspberry Pi OS
+  set_fact:
+    tinypilot_is_os_raspbian: "{{ ansible_lsb.id is defined and ansible_lsb.id == 'Raspbian' }}"
+
 - name: choose the default version of uStreamer to install
   set_fact:
     ustreamer_repo_version: "{{ ustreamer_repo_version_modern }}"
@@ -6,7 +10,7 @@
 - name: override the target version of uStreamer with a legacy version for compatibility
   set_fact:
     ustreamer_repo_version: "{{ ustreamer_repo_version_legacy }}"
-  when: ansible_distribution == 'Debian' and ansible_distribution_major_version < 10
+  when: tinypilot_is_os_raspbian and ((ansible_distribution_major_version | int) <= 10)
 
 - name: import uStreamer role
   import_role:
