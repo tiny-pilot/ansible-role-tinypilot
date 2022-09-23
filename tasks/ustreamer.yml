@@ -1,7 +1,18 @@
 ---
+- name: choose the default version of uStreamer to install
+  set_fact:
+    ustreamer_repo_version: "{{ ustreamer_repo_version_modern }}"
+
+- name: override the target version of uStreamer with a legacy version for compatibility
+  set_fact:
+    ustreamer_repo_version: "{{ ustreamer_repo_version_legacy }}"
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version < 10
+
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
+  vars:
+    ustreamer_repo_version: "{{ ustreamer_repo_version }}"
 
 - name: create uStreamer Janus plugin config
   template:
