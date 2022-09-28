@@ -6,11 +6,14 @@
 - name: choose the default version of uStreamer to install
   set_fact:
     ustreamer_repo_version: "{{ ustreamer_repo_version_modern }}"
+  when: ustreamer_repo_version is not defined
 
 - name: override the target version of uStreamer with a legacy version for compatibility
   set_fact:
     ustreamer_repo_version: "{{ ustreamer_repo_version_legacy }}"
-  when: tinypilot_is_os_raspbian and ((ansible_distribution_major_version | int) <= 10)
+  when: ((ustreamer_repo_version is not defined) and
+           tinypilot_is_os_raspbian and
+           ((ansible_distribution_major_version | int) <= 10))
 
 - name: import uStreamer role
   import_role:
