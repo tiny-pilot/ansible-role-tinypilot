@@ -30,4 +30,4 @@ tinypilot_install_janus: no
 # uStreamer version to use on systems prior to Raspbian Bullseye (Debian 11).
 ustreamer_repo_version_legacy: v4.13
 # uStreamer version to use on Raspbian Bullseye (Debian 11) or later systems.
-ustreamer_repo_version_modern: v5.22
+ustreamer_repo_version_modern: v5.23

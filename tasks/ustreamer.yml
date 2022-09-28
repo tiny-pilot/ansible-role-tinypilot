@@ -15,8 +15,6 @@
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
-  vars:
-    ustreamer_repo_version: "{{ ustreamer_repo_version }}"
 
 - name: create uStreamer Janus plugin config
   template:
