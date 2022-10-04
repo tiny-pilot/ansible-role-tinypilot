@@ -76,6 +76,8 @@ cd /opt/ustreamer && \
 print_info "Checking OS version..."
 {
   printf "OS version: %s\n" "$(uname -a)"
+  printf "Distribution name: %s\n" "$(lsb_release --id --short)"
+  printf "Distribution version: %s\n" "$(lsb_release --release --short)"
   printf "\n"
 } >> "${LOG_FILE}"
 
