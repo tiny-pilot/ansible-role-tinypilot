@@ -1,4 +1,0 @@
----
-- name: install Janus Debian package
-  apt:
-    deb: "{{ janus_deb_file }}"

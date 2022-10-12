@@ -20,8 +20,3 @@
   service:
     name: usb-gadget
     state: started
-
-- name: restart janus service
-  service:
-    name: janus
-    state: restarted
