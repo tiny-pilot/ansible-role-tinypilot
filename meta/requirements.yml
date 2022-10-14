@@ -1,3 +1,4 @@
 ---
 - src: https://github.com/tiny-pilot/ansible-role-ustreamer
+  version: d021d335e1c87ded6d96e94142bc4ade043e7fb3
 - src: https://github.com/tiny-pilot/ansible-role-nginx
