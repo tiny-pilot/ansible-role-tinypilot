@@ -2,6 +2,10 @@
 tinypilot_group: tinypilot
 tinypilot_dir: /opt/tinypilot
 tinypilot_privileged_dir: /opt/tinypilot-privileged
+# Contains executables for systemd services.
+tinypilot_services_dir: "{{tinypilot_privileged_dir }}/services"
+# Contains shared library files for scripts with root privileges.
+tinypilot_privileged_lib_dir: "{{tinypilot_privileged_dir }}/lib"
 # Specifies the filesystem path or URL of a Debian package that installs
 # TinyPilot. If unset, the role installs TinyPilot from source using the
 # tinypilot_repo variable instead.

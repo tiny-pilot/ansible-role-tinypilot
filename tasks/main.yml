@@ -7,15 +7,15 @@
 - name: install nginx
   import_tasks: nginx.yml
 
-- name: create the `lib` directory if it does not exist
+- name: create the privileged lib directory if it does not exist
   file:
-    path: "{{ tinypilot_privileged_dir }}/lib"
+    path: "{{ tinypilot_privileged_lib_dir }}"
     state: directory
 
 - name: copy `lib` scripts
   copy:
     src: "{{ item }}"
-    dest: "{{ tinypilot_privileged_dir }}/lib/{{ item | basename }}"
+    dest: "{{ tinypilot_privileged_lib_dir }}/{{ item | basename }}"
     owner: root
     group: root
     mode: '0755'
@@ -62,6 +62,13 @@
     group: "{{ tinypilot_group }}"
     system: yes
     create_home: yes
+
+- name: create TinyPilot privileged executables folder
+  file:
+    path: "{{ tinypilot_privileged_dir }}"
+    state: directory
+    owner: "root"
+    group: "root"
 
 - name: copy admin scripts
   copy:
