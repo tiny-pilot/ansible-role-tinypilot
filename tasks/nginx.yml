@@ -19,8 +19,11 @@
         servers:
           - "{{ ustreamer_interface }}:{{ ustreamer_port }} fail_timeout=1s max_fails=600"
       - name: janus-ws
+        # The Janus port and interface are currently not configurable, but they
+        # are set to fixed values by the Janus Debian package.
+        # See: https://github.com/tiny-pilot/janus-debian/issues/5
         servers:
-          - "127.0.0.1:{{ ustreamer_janus_port }} fail_timeout=1s max_fails=600"
+          - "127.0.0.1:8002 fail_timeout=1s max_fails=600"
     nginx_vhosts:
       - listen: "{{ tinypilot_external_port }} default_server"
         server_name: "tinypilot"

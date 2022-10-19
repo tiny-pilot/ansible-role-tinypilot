@@ -2,5 +2,5 @@
 - src: https://github.com/tiny-pilot/ansible-role-ustreamer
   # TODO(jotaen): Remove `version` once the `import-janus` branch in
   #               `ansible-role-ustreamer` is merged.
-  version: 6a378caeffad46bb658a13eca4c2b6dc1cabe659
+  version: 6abdb8d1432cb436ab33bbe5207279f85b1a5753
 - src: https://github.com/tiny-pilot/ansible-role-nginx

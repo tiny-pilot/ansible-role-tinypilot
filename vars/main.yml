@@ -10,4 +10,3 @@ tinypilot_user: tinypilot
 ustreamer_interface: '127.0.0.1'
 ustreamer_port: 8001
 ustreamer_repo: https://github.com/tiny-pilot/ustreamer.git
-ustreamer_janus_port: 8002
