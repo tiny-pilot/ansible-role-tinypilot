@@ -16,26 +16,3 @@
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
-
-- name: create uStreamer Janus plugin config
-  template:
-    src: janus.plugin.ustreamer.jcfg.j2
-    dest: "{{ janus_install_dir }}/etc/janus/janus.plugin.ustreamer.jcfg"
-  notify:
-    - restart janus service
-  when: >-
-    tinypilot_install_janus
-    and ustreamer_compile_janus_plugin
-    and ustreamer_h264_sink != None
-
-- name: install uStreamer Janus plugin
-  copy:
-    remote_src: yes
-    src: "{{ ustreamer_dir }}/janus/libjanus_ustreamer.so"
-    dest: "{{ janus_install_dir }}/lib/janus/plugins/"
-  notify:
-    - restart janus service
-  when: >-
-    tinypilot_install_janus
-    and ustreamer_compile_janus_plugin
-    and ustreamer_h264_sink != None

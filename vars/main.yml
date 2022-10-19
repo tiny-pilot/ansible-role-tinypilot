@@ -10,10 +10,3 @@ tinypilot_user: tinypilot
 ustreamer_interface: '127.0.0.1'
 ustreamer_port: 8001
 ustreamer_repo: https://github.com/tiny-pilot/ustreamer.git
-
-janus_deb_file: https://github.com/tiny-pilot/janus-debian/releases/download/1.0.1/janus_1.0.1-20220519_armhf.deb
-# These variables are only used within this role and don't affect the Janus
-# installation config.
-janus_install_dir: /opt/janus
-janus_ws_ip: '127.0.0.1'
-janus_ws_port: 8002
