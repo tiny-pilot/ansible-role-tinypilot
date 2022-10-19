@@ -71,7 +71,7 @@ cd /opt/tinypilot && \
 
 print_info "Checking uStreamer version..."
 cd /opt/ustreamer && \
-  printf "uStreamer version: %s %s\n" "$(git describe --tags --always)" "$(git rev-parse --short HEAD)" >> "${LOG_FILE}"
+  printf "uStreamer version: %s\n" "$(/opt/ustreamer/ustreamer --version)" >> "${LOG_FILE}"
 
 print_info "Checking OS version..."
 {
