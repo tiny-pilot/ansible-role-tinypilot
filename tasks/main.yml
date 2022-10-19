@@ -7,21 +7,6 @@
 - name: install nginx
   import_tasks: nginx.yml
 
-- name: create the `lib` directory if it does not exist
-  file:
-    path: "{{ tinypilot_privileged_dir }}/lib"
-    state: directory
-
-- name: copy `lib` scripts
-  copy:
-    src: "{{ item }}"
-    dest: "{{ tinypilot_privileged_dir }}/lib/{{ item | basename }}"
-    owner: root
-    group: root
-    mode: '0755'
-  with_fileglob:
-    - lib/*
-
 - name: install HID USB gadget
   import_tasks: install_usb_gadget.yml
 
@@ -62,39 +47,6 @@
     group: "{{ tinypilot_group }}"
     system: yes
     create_home: yes
-
-- name: copy admin scripts
-  copy:
-    src: "{{ item }}"
-    dest: "{{ tinypilot_privileged_dir }}/{{ item }}"
-    owner: root
-    group: root
-    mode: '0755'
-  with_items:
-    - change-hostname
-    - collect-debug-logs
-    - read-update-log
-    - update
-    - update-video-settings
-
-- name: store passwordless sudo paths
-  set_fact:
-    sudo_paths:
-      - /sbin/shutdown
-      - /usr/sbin/service tinypilot-updater start
-      - "{{ tinypilot_privileged_dir }}/change-hostname"
-      - "{{ tinypilot_privileged_dir }}/collect-debug-logs"
-      - "{{ tinypilot_privileged_dir }}/read-update-log"
-      - "{{ tinypilot_privileged_dir }}/update"
-      - "{{ tinypilot_privileged_dir }}/update-video-settings"
-
-- name: enable tinypilot to execute a whitelist of commands as sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    line: "{{ tinypilot_user }} ALL=(ALL) NOPASSWD: {{ sudo_paths | join(', ') }}"
-    regexp: "^{{ tinypilot_user }}"
-    validate: sudo /usr/sbin/visudo -cf %s
 
 - name: install TinyPilot Debian package
   apt:
