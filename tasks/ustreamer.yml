@@ -50,7 +50,7 @@
 
 
 - name: import uStreamer role
-  import_role:
+  include_role:
     name: ansible-role-ustreamer
   vars:
       ustreamer_interface: "{{ ustreamer_overrides.ustreamer_interface }}"
