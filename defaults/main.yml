@@ -35,3 +35,5 @@ ustreamer_repo_version_modern: v5.23
 ustreamer_interface: '127.0.0.1'
 ustreamer_port: 8001
 ustreamer_repo: https://github.com/tiny-pilot/ustreamer.git
+# If you add any new overrides for uStreamer default variables, add the variable
+# to tasks/ustreamer.yml as well.
