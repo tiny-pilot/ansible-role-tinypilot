@@ -13,12 +13,16 @@
   when: tinypilot_is_os_raspbian and
           ((ansible_distribution_major_version | int) <= 10)
 
+
+# https://github.com/kzap/ansible-parent-role-defaults-example
 - name: override other uStreamer vars
   set_fact:
-    ustreamer_overrides:
-      ustreamer_interface: "{{ ustreamer_interface }}"
-      ustreamer_port: "{{ ustreamer_port }}"
-      ustreamer_repo: "{{ ustreamer_repo }}"
+    ustreamer_overrides: "{{ ustreamer_overrides | default({}) | combine({ item: lookup('vars', item) }) }}"
+  when: lookup('vars', item, default='UNDEFINED_VARIABLE') != 'UNDEFINED_VARIABLE'
+  loop:
+    - ustreamer_interface
+    - ustreamer_port
+    - ustreamer_repo
 
 - name: import uStreamer role
   import_role:
