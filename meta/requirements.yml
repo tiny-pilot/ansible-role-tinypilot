@@ -1,4 +1,4 @@
 ---
 - src: https://github.com/tiny-pilot/ansible-role-ustreamer
-  version: output-role-vars2
+  version: is-truthy
 - src: https://github.com/tiny-pilot/ansible-role-nginx
