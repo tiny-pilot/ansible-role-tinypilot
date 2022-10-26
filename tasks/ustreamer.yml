@@ -20,3 +20,6 @@
       ustreamer_interface: "{{ ustreamer_overrides.ustreamer_interface }}"
       ustreamer_port: "{{ ustreamer_overrides.ustreamer_port }}"
       ustreamer_repo: "{{ ustreamer_overrides.ustreamer_repo }}"
+      ustreamer_h264_sink: "{{ ustreamer_overrides.ustreamer_h264_sink }}"
+      ustreamer_h264_sink_mode: "{{ ustreamer_overrides.ustreamer_h264_sink_mode }}"
+      ustreamer_h264_sink_rm: "{{ ustreamer_overrides.ustreamer_h264_sink_rm }}"
