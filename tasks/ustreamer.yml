@@ -29,6 +29,9 @@
     - ustreamer_h264_sink_mode
     - ustreamer_h264_sink_rm
 
+- debug:
+  var: ustreamer_overrides
+
 - name: import uStreamer role
   include_role:
     name: ansible-role-ustreamer
