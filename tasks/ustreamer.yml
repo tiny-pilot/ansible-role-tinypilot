@@ -13,6 +13,17 @@
   when: tinypilot_is_os_raspbian and
           ((ansible_distribution_major_version | int) <= 10)
 
+- name: override other uStreamer vars
+  set_fact:
+    ustreamer_overrides:
+      ustreamer_interface: "{{ ustreamer_interface }}"
+      ustreamer_port: "{{ ustreamer_port }}"
+      ustreamer_repo: "{{ ustreamer_repo }}"
+
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
+  vars:
+      ustreamer_interface: "{{ ustreamer_overrides.ustreamer_interface }}"
+      ustreamer_port: "{{ ustreamer_overrides.ustreamer_port }}"
+      ustreamer_repo: "{{ ustreamer_overrides.ustreamer_repo }}"
