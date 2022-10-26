@@ -16,3 +16,7 @@
 - name: import uStreamer role
   import_role:
     name: ansible-role-ustreamer
+  vars:
+      ustreamer_interface: "{{ ustreamer_overrides.ustreamer_interface }}"
+      ustreamer_port: "{{ ustreamer_overrides.ustreamer_port }}"
+      ustreamer_repo: "{{ ustreamer_overrides.ustreamer_repo }}"
