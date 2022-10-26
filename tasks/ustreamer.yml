@@ -25,6 +25,18 @@
 - debug:
     var: lookup('vars', 'tinypilot_external_port')
 
+- debug:
+    var: tinypilot_foo
+
+- debug:
+    var: lookup('vars', 'tinypilot_foo')
+
+- debug:
+    var: tinypilot_bar
+
+- debug:
+    var: lookup('vars', 'tinypilot_bar')
+
 # https://github.com/kzap/ansible-parent-role-defaults-example
 - name: override other uStreamer vars
   set_fact:
