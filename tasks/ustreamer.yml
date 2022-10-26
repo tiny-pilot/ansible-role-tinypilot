@@ -13,9 +13,11 @@
   when: tinypilot_is_os_raspbian and
           ((ansible_distribution_major_version | int) <= 10)
 
-
+# Apply a workaround so that the default variables in this role take precedence
+# over the default variables in the child uStreamer role. This technique is
+# based on this example:
 # https://github.com/kzap/ansible-parent-role-defaults-example
-- name: override other uStreamer vars
+- name: collect uStreamer role variables to override
   set_fact:
     ustreamer_overrides: "{{ ustreamer_overrides | default({}) | combine({ item: lookup('vars', item) }) }}"
   when: lookup('vars', item, default='UNDEFINED_VARIABLE') != 'UNDEFINED_VARIABLE'
@@ -25,7 +27,7 @@
     - ustreamer_repo
 
 - name: import uStreamer role
-  import_role:
+  include_role:
     name: ansible-role-ustreamer
   vars:
       ustreamer_interface: "{{ ustreamer_overrides.ustreamer_interface }}"

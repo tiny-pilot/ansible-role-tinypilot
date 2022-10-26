@@ -29,6 +29,9 @@ ustreamer_repo_version_legacy: v4.13
 # uStreamer version to use on Raspbian Bullseye (Debian 11) or later systems.
 ustreamer_repo_version_modern: v5.23
 
+# By default, Ansible lets the child uStreamer role override these defaults, so
+# we have to apply a workaround in ustreamer.yml to prioritize our defaults
+# instead.
 ustreamer_interface: '127.0.0.1'
 ustreamer_port: 8001
 ustreamer_repo: https://github.com/tiny-pilot/ustreamer.git
