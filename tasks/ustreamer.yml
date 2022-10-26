@@ -32,10 +32,10 @@
     var: lookup('vars', 'tinypilot_foo')
 
 - debug:
-    var: tinypilot_bar
+    var: ustreamer_foo
 
 - debug:
-    var: lookup('vars', 'tinypilot_bar')
+    var: lookup('vars', 'ustreamer_foo')
 
 # https://github.com/kzap/ansible-parent-role-defaults-example
 - name: override other uStreamer vars
