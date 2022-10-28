@@ -26,7 +26,6 @@ provisioner:
       all:
         vars:
           ansible_user: root
-          ustreamer_h264_sink: null
 verifier:
   name: ansible
 scenario:
