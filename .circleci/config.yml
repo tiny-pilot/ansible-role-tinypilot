@@ -41,6 +41,7 @@ jobs:
           # testing environment on CircleCI. Therefore, we have to alter the
           # Ansible config to prevent the uStreamer role from trying to install
           # Janus during the tests.
+          # https://github.com/tiny-pilot/ansible-role-tinypilot/issues/236
           name: Overwrite `ustreamer_h264_...` variables
           command: |
             sed --in-place \
