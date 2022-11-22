@@ -40,6 +40,44 @@
     reboot_required: >-
       {{ boot_config_lineinfile.changed or modules_lineinfile.changed }}
 
+- name: create TinyPilot privileged folder
+  file:
+    path: "{{ tinypilot_privileged_dir }}"
+    state: directory
+    owner: "root"
+    group: "root"
+
+- name: copy usb-gadget initializer
+  copy:
+    src: init-usb-gadget
+    dest: "{{ tinypilot_privileged_dir }}/init-usb-gadget"
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: copy usb-gadget de-initializer
+  copy:
+    src: remove-usb-gadget
+    dest: "{{ tinypilot_privileged_dir }}/remove-usb-gadget"
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: install usb-gadget initializer as a service
+  template:
+    src: usb-gadget.systemd.j2
+    dest: /lib/systemd/system/usb-gadget.service
+    owner: root
+    group: root
+    mode: '0644'
+  register: usb_gadget_template
+
+- name: enable systemd usb-gadget initializer service file
+  systemd:
+    name: usb-gadget
+    enabled: yes
+    daemon_reload: "{{ usb_gadget_template.changed }}"
+
 # This custom USB HID kernel module fixes compatibility issues in pre-boot for
 # OS X systems. The patch already exists in kernal versions >= 5.15.
 # Issue: https://github.com/tiny-pilot/ansible-role-tinypilot/issues/151
