@@ -1,4 +1,5 @@
 ---
+tinypilot_group: tinypilot
 # Specifies the filesystem path or URL of a Debian package that installs
 # TinyPilot. If unset, the role installs TinyPilot from source using the
 # tinypilot_repo variable instead.
