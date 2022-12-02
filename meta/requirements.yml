@@ -1,3 +1,4 @@
 ---
 - src: https://github.com/tiny-pilot/ansible-role-ustreamer
+  version: idempotence
 - src: https://github.com/tiny-pilot/ansible-role-nginx
