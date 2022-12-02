@@ -1,5 +1,5 @@
 ---
-- name: check if OS is Raspberry Pi OS
+- name: detect OS
   set_fact:
     tinypilot_is_os_raspbian: "{{ ansible_lsb.id is defined and ansible_lsb.id == 'Raspbian' }}"
     tinypilot_is_os_debian: "{{ ansible_lsb.id is defined and ansible_lsb.id == 'Debian' }}"
