@@ -37,17 +37,6 @@ jobs:
           name: Create Python3 virtual environment
           command: python3 -m venv venv
       - run:
-          # The Janus Debian package doesn’t support the architecture of the
-          # testing environment on CircleCI. Therefore, we have to alter the
-          # Ansible config to prevent the uStreamer role from trying to install
-          # Janus during the tests.
-          # https://github.com/tiny-pilot/ansible-role-tinypilot/issues/236
-          name: Overwrite `ustreamer_h264_...` variables
-          command: |
-            sed --in-place \
-              's/ustreamer_h264_\(.*\): .*/ustreamer_h264_\1: null/g' \
-              vars/main.yml
-      - run:
           name: Test role with molecule
           command: |
             . venv/bin/activate && \
