@@ -9,13 +9,6 @@
     name: tinypilot
     state: restarted
 
-- name: reload tinypilot updater systemd config
-  systemd:
-    name: tinypilot-updater
-    daemon_reload: yes
-    # Never run automatically.
-    enabled: no
-
 - name: start usb-gadget service
   service:
     name: usb-gadget
