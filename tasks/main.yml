@@ -151,13 +151,3 @@
   systemd:
     name: tinypilot
     enabled: yes
-
-- name: install tinypilot-updater as a service
-  template:
-    src: tinypilot-updater.systemd.j2
-    dest: /lib/systemd/system/tinypilot-updater.service
-    owner: root
-    group: root
-    mode: '0644'
-  notify:
-    - reload tinypilot updater systemd config
