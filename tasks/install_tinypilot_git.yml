@@ -45,3 +45,15 @@
     accept_hostkey: yes
   notify:
     - restart TinyPilot service
+
+- name: create tinypilot group
+  group:
+    name: "{{ tinypilot_group }}"
+    state: present
+
+- name: create tinypilot user
+  user:
+    name: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+    system: yes
+    create_home: yes
