@@ -31,8 +31,6 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ tinypilot_user }}"
-    group: "{{ tinypilot_group }}"
 
 - name: suppress warnings about git ownership for TinyPilot directory
   git_config:
