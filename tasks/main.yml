@@ -81,6 +81,11 @@
     value: "{{ tinypilot_dir }}"
   when: tinypilot_debian_package_path == None
 
+- git_config:
+    scope: global
+    name: safe.directory
+    value: "{{ tinypilot_dir }}"
+
 - name: '[DEPRECATED] get TinyPilot repo'
   git:
     repo: "{{ tinypilot_repo }}"
