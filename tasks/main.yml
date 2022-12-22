@@ -72,8 +72,6 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     recurse: yes
   when: tinypilot_debian_package_path == None
   tags:
@@ -82,10 +80,14 @@
     # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
     - molecule-idempotence-notest
 
+- name: suppress warnings about git ownership for TinyPilot directory
+  git_config:
+    scope: global
+    name: safe.directory
+    value: "{{ tinypilot_dir }}"
+  when: tinypilot_debian_package_path == None
+
 - name: '[DEPRECATED] get TinyPilot repo'
-  # Don't escalate privileges because only the directory owner can use git.
-  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-  become: no
   git:
     repo: "{{ tinypilot_repo }}"
     dest: "{{ tinypilot_dir }}"
