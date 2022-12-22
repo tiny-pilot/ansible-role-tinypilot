@@ -82,6 +82,11 @@
     # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
     - molecule-idempotence-notest
 
+- git_config:
+    scope: global
+    name: safe.directory
+    value: "{{ tinypilot_dir }}"
+
 - name: '[DEPRECATED] get TinyPilot repo'
   # Don't escalate privileges because only the directory owner can use git.
   # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
