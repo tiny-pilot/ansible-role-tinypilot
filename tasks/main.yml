@@ -72,13 +72,7 @@
   file:
     path: "{{ tinypilot_dir }}"
     state: directory
-    recurse: yes
   when: tinypilot_debian_package_path == None
-  tags:
-    # This fails the idempotency test because it must run on every provision
-    # to set the correct directory ownership that allows git to sync.
-    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-    - molecule-idempotence-notest
 
 - name: suppress warnings about git ownership for TinyPilot directory
   git_config:
