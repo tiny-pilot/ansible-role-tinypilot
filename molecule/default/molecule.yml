@@ -21,11 +21,6 @@ platforms:
 provisioner:
   name: ansible
   log: true
-  inventory:
-    hosts:
-      all:
-        vars:
-          ansible_user: root
 verifier:
   name: ansible
 scenario:
