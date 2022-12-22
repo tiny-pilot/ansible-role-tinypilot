@@ -68,33 +68,9 @@
     deb: "{{ tinypilot_debian_package_path }}"
   when: tinypilot_debian_package_path != None
 
-- name: create TinyPilot folder
-  file:
-    path: "{{ tinypilot_dir }}"
-    state: directory
-  when: tinypilot_debian_package_path == None
-
-- name: suppress warnings about git ownership for TinyPilot directory
-  git_config:
-    scope: global
-    name: safe.directory
-    value: "{{ tinypilot_dir }}"
-  when: tinypilot_debian_package_path == None
-
-- git_config:
-    scope: global
-    name: safe.directory
-    value: "{{ tinypilot_dir }}"
-
-- name: '[DEPRECATED] get TinyPilot repo'
-  git:
-    repo: "{{ tinypilot_repo }}"
-    dest: "{{ tinypilot_dir }}"
-    version: "{{ tinypilot_repo_branch }}"
-    accept_hostkey: yes
-  when: tinypilot_debian_package_path == None
-  notify:
-    - restart TinyPilot service
+- name: install TinyPilot via git
+  import_tasks: install_tinypilot_git.yml
+  when: tinypilot_debian_package_path != None
 
 - name: find absolute path to python3
   shell: realpath $(which python3)
