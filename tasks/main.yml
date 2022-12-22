@@ -68,37 +68,9 @@
     deb: "{{ tinypilot_debian_package_path }}"
   when: tinypilot_debian_package_path != None
 
-- name: create TinyPilot folder
-  file:
-    path: "{{ tinypilot_dir }}"
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    recurse: yes
-  when: tinypilot_debian_package_path == None
-  tags:
-    # This fails the idempotency test because it must run on every provision
-    # to set the correct directory ownership that allows git to sync.
-    # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-    - molecule-idempotence-notest
-
-- git_config:
-    scope: global
-    name: safe.directory
-    value: "{{ tinypilot_dir }}"
-
-- name: '[DEPRECATED] get TinyPilot repo'
-  # Don't escalate privileges because only the directory owner can use git.
-  # Issue: https://github.com/tiny-pilot/tinypilot/issues/963
-  become: no
-  git:
-    repo: "{{ tinypilot_repo }}"
-    dest: "{{ tinypilot_dir }}"
-    version: "{{ tinypilot_repo_branch }}"
-    accept_hostkey: yes
-  when: tinypilot_debian_package_path == None
-  notify:
-    - restart TinyPilot service
+- name: install TinyPilot via git
+  import_tasks: install_tinypilot_git.yml
+  when: tinypilot_debian_package_path != None
 
 - name: find absolute path to python3
   shell: realpath $(which python3)

@@ -1,0 +1,23 @@
+# Installing TinyPilot via git is deprecated and no longer used for production
+# installs, but we still rely on it for testing the Ansible role.
+- name: create TinyPilot folder
+  file:
+    path: "{{ tinypilot_dir }}"
+    state: directory
+    owner: "{{ tinypilot_user }}"
+    group: "{{ tinypilot_group }}"
+
+- name: suppress warnings about git ownership for TinyPilot directory
+  git_config:
+    scope: global
+    name: safe.directory
+    value: "{{ tinypilot_dir }}"
+
+- name: '[DEPRECATED] get TinyPilot repo'
+  git:
+    repo: "{{ tinypilot_repo }}"
+    dest: "{{ tinypilot_dir }}"
+    version: "{{ tinypilot_repo_branch }}"
+    accept_hostkey: yes
+  notify:
+    - restart TinyPilot service
