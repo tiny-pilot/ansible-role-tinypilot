@@ -1,4 +1,3 @@
-
 # Installing TinyPilot via git is deprecated and no longer used for production
 # installs, but we still rely on it for testing the Ansible role.
 
