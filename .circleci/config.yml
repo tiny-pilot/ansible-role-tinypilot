@@ -28,7 +28,7 @@ jobs:
     steps:
       - run:
           name: clone TinyPilot core repo
-          command: git clone git@github.com:tiny-pilot/tinypilot.git .
+          command: git clone https://github.com/tiny-pilot/tinypilot.git .
       - setup_remote_docker:
           version: 20.10.11
       - run:
