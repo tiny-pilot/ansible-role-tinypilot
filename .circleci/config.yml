@@ -45,10 +45,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ./dist
+          at: ./debian-pkgs
       - run:
           name: move deb file
-          command: mv dist/tinypilot*.deb dist/tinypilot_latest_all.deb
+          command: mv debian-pkgs/tinypilot*.deb debian-pkgs/tinypilot_latest_all.deb
       - run:
           name: Create symlink to role
           command: |

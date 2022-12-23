@@ -9,7 +9,7 @@ platforms:
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./dist/tinypilot_latest_all.deb:/opt/debian-pkgs/tinypilot_latest_all.deb:ro
+      - "${PWD}/debian-pkgs:/opt/debian-pkgs:ro"
     privileged: true
     pre_build_image: true
   - name: debian11
@@ -17,7 +17,7 @@ platforms:
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./dist/tinypilot_latest_all.deb:/opt/debian-pkgs/tinypilot_latest_all.deb:ro
+      - "${PWD}/debian-pkgs:/opt/debian-pkgs:ro"
     privileged: true
     pre_build_image: true
 provisioner:
