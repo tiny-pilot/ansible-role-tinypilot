@@ -22,6 +22,22 @@ jobs:
       - run:
           name: Run static analysis on bash scripts
           command: ./tests/check-bash
+  build_debian_package:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: clone TinyPilot core repo
+          command: git clone git@github.com:tiny-pilot/tinypilot.git .
+      - setup_remote_docker:
+          version: 20.10.11
+      - run:
+          name: Build Debian package
+          command: ./dev-scripts/build-debian-pkg
+      - persist_to_workspace:
+          root: ./debian-pkg/releases
+          paths:
+            - "*.deb"
   build:
     machine:
       image: ubuntu-2004:202010-01

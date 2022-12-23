@@ -15,16 +15,6 @@
         cache_valid_time: 600
     - name: Gather facts
       setup:
-    - name: Get TinyPilot core repo
-      git:
-        repo: https://github.com/tiny-pilot/tinypilot.git
-        dest: /tmp/tinypilot
-        accept_hostkey: yes
-    - name: Build TinyPilot Debian package
-      command: /tmp/tinypilot/dev-scripts/build-debian-pkg
-      register: debian_pkg_output
-    - debug:
-        var: debian_pkg_output
-    - name: Include ansible-role-tinypilot
+    - name: "Include ansible-role-tinypilot"
       include_role:
         name: "ansible-role-tinypilot"
