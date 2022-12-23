@@ -45,7 +45,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ./
+          at: ./dist
+      - run:
+          name: move deb file
+          command: mv dist/tinypilot*.deb dist/tinypilot_latest_all.deb
       - run:
           name: Create symlink to role
           command: |
