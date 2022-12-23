@@ -44,6 +44,8 @@ jobs:
     resource_class: large
     steps:
       - checkout
+      - attach_workspace:
+          at: ./
       - run:
           name: Create symlink to role
           command: |

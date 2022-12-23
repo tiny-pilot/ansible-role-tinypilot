@@ -18,3 +18,5 @@
     - name: "Include ansible-role-tinypilot"
       include_role:
         name: "ansible-role-tinypilot"
+      vars:
+        tinypilot_debian_package_path: "{{ lookup('ansible.builtin.fileglob', 'tinypilot*.deb') }}"
