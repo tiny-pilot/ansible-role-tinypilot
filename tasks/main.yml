@@ -70,16 +70,6 @@
   tags:
     - app-settings
 
-- name: fix TinyPilot folder permissions
-  file:
-    path: "{{ tinypilot_dir }}"
-    state: directory
-    owner: "{{ tinypilot_user }}"
-    group: "{{ tinypilot_group }}"
-    recurse: yes
-  tags:
-    - molecule-idempotence-notest
-
 - name: install TinyPilot as a service
   template:
     src: tinypilot.systemd.j2
