@@ -11,8 +11,6 @@ Available variables are listed below, along with default values (see [defaults/m
 
 ```yaml
 tinypilot_group: tinypilot
-tinypilot_repo: https://github.com/tiny-pilot/tinypilot.git
-tinypilot_repo_branch: master
 tinypilot_interface: '127.0.0.1'
 tinypilot_port: 8000
 tinypilot_keyboard_interface: /dev/hidg0
