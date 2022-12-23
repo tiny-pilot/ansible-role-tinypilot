@@ -27,7 +27,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: clone TinyPilot core repo
+          name: Clone TinyPilot core repo
           command: git clone https://github.com/tiny-pilot/tinypilot.git .
       - setup_remote_docker:
           version: 20.10.11
@@ -47,7 +47,7 @@ jobs:
       - attach_workspace:
           at: ./debian-pkgs
       - run:
-          name: move deb file
+          name: Give TinyPilot Debian package a predictable filename
           command: mv debian-pkgs/tinypilot*.deb debian-pkgs/tinypilot_latest_all.deb
       - run:
           name: Create symlink to role

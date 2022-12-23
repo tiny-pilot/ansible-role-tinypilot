@@ -29,6 +29,7 @@ tinypilot_keyboard_interface: /dev/hidg0
 - hosts: all
   roles:
     - role: ansible-role-tinypilot
+      vars: /path/to/tinypilot.deb
 ```
 
 ### Running Example Playbook
