@@ -10,6 +10,10 @@ Ansible role for [TinyPilot KVM](https://github.com/tiny-pilot/tinypilot).
 Available variables are listed below, along with default values (see [defaults/main.yml](defaults/main.yml)):
 
 ```yaml
+<<<<<<< HEAD
+=======
+tinypilot_group: tinypilot
+>>>>>>> master
 tinypilot_interface: '127.0.0.1'
 tinypilot_port: 8000
 tinypilot_keyboard_interface: /dev/hidg0
