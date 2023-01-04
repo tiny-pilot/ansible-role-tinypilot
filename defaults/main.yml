@@ -1,5 +1,4 @@
 ---
-tinypilot_group: tinypilot
 # Specifies the filesystem path or URL of a Debian package that installs
 # TinyPilot.
 tinypilot_debian_package_path: null

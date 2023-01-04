@@ -3,6 +3,7 @@
 # updates) relies on the tinypilot user being named "tinypilot" so changing this
 # value will break updates.
 tinypilot_user: tinypilot
+tinypilot_group: tinypilot
 
 tinypilot_dir: /opt/tinypilot
 tinypilot_privileged_dir: /opt/tinypilot-privileged
