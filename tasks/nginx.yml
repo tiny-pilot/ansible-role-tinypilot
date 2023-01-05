@@ -1,12 +1,4 @@
 ---
-# TinyPilot Pro has two nginx configuration files, whereas TinyPilot Community
-# has just one. Remove the extra Pro file otherwise nginx will fail due to the
-# extra file if the user downgrades from Pro to free.
-- name: remove stray conf file from TinyPilot Pro
-  file:
-    path: /etc/nginx/sites-enabled/tinypilot.http.conf
-    state: absent
-
 - name: import nginx role
   import_role:
     name: ansible-role-nginx
